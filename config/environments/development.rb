@@ -34,4 +34,7 @@ Jqclient::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.app_key = 
+  config.app_secret = 
 end

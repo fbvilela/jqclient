@@ -4,28 +4,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">	
   <title>Jqclient</title>
   <%= stylesheet_link_tag "application", :media => "all" %>
-  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
   <%= javascript_include_tag "application" %>
-  <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+  <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
 	<div data-role="page">
-
-	<div data-role="header">
-		<h1>RealEstate Mate</h1>
-	</div><!-- /header -->
-
+	   <div data-theme="e" data-role="header">
+       <h3>
+         iDash Contacts
+       </h3>
+      </div>
 	<div data-role="content">	
 		<%= yield %>
 	</div><!-- /content -->
 
   <div data-role="footer">
-  	<h4>RealEstate Mate - Footer</h4>
+  	
   </div
 </div><!-- /page -->
-
-
 
 </body>
 </html>
