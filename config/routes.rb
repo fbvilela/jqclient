@@ -1,4 +1,8 @@
 Jqclient::Application.routes.draw do
+  post "users/sign_in"
+
+  get "users/sign_out"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

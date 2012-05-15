@@ -35,6 +35,8 @@ Jqclient::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.app_key = 
-  config.app_secret = 
+  # api connection related 
+  config.idashboard_url = "http://www.idashboard.com.au"
+  config.app_key = "Xq06Sz92IYGAKXWuALO53K3y6EMy7xlDF0q4Fi7L"
+  config.app_secret = "kICGk78VnE6Zq8fkFyxdRrAUnwsl3mzj403ENXtg"
 end
