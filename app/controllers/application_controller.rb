@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
 
   def check_auth
-    redirect_to page_path('index') unless session[:access_token]
+    #redirect_to page_path('index') unless session[:access_token]
   end
 
   def oauth_client
