@@ -64,4 +64,9 @@ Jqclient::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  # api connection related 
+  config.idashboard_url = "http://www.idashboard.com.au"
+  config.app_key = "Xq06Sz92IYGAKXWuALO53K3y6EMy7xlDF0q4Fi7L"
+  config.app_secret = "kICGk78VnE6Zq8fkFyxdRrAUnwsl3mzj403ENXtg"
 end
