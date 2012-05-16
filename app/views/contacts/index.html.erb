@@ -1,0 +1,10 @@
+<div data-role="content">
+    <%= render partial: "nav_bar" %>
+    <ul data-role="listview" data-divider-theme="b" data-inset="true">
+        <li data-role="list-divider" role="heading">
+            <%= @contacts.count %> Contacts Found
+        </li>
+         <%= render :partial => 'contact_list', :collection => @contacts , :as => :contact %>
+    </ul>
+</div>
+</div>

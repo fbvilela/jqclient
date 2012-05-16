@@ -1,0 +1,53 @@
+<%= form_tag("/contacts/create") do %>
+<div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-mini="true">
+                        <label for="textinput6">
+                            First name
+                        </label>
+                        <input id="textinput6" name="contact[first_name]" placeholder="" value="" type="text" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput7">
+                            Last name
+                        </label>
+                        <input id="textinput7" placeholder="" value="" name="contact[last_name]" type="text" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput8">
+                            Phone number
+                        </label>
+                        <input id="textinput8" placeholder="" name="contact[mobile]" value="" type="tel" />
+                    </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="selectmenu1">
+                        Phone type
+                    </label>
+                    <select id="selectmenu1" data-theme="e" data-mini="false">
+                        <option value="mobile">
+                            mobile
+                        </option>
+                        <option value="home">
+                            home phone
+                        </option>
+                        <option value="work">
+                            Work phone
+                        </option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput9">
+                            Email
+                        </label>
+                        <input id="textinput9" placeholder="" value="" name="contact[email]" type="email" />
+                    </fieldset>
+                </div>
+                <input type="submit" value="Create" data-theme="b" />
+            </div>
+        </div>
+<% end %> 
