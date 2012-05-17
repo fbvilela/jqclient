@@ -9,13 +9,21 @@ class ContactsController < ApplicationController
   def create 
   	puts session[:access_token]
   	Contact.token = session[:access_token]
+    Requirement.token = session[:access_token]
     
-  	contact = Contact.new
-  	contact.first_name = params[:contact][:first_name]
-  	contact.last_name = params[:contact][:last_name]
-  	contact.email = params[:contact][:email]
+    min, max = params['requirement_price'].split("_")
+    params['requirement']['min_price'] = min 
+    params['requirement']['max_price'] = max
+
+    contact = Contact.new( params['contact'] )
+    
   	if contact.save
-  	  flash[:notice] = "OMG it works! check idashboard... "
+      unless params['requirement']['name'].blank? 
+        requirement = Requirement.new(params['requirement'])
+        requirement.prefix_options = {:contact_id => contact.id}
+        requirement.save
+      end
+  	  flash[:notice] = "#{contact.name} added to iDashboard!"
   	  redirect_to "/contacts/index"
     else
       flash[:notice] = "Booo, contact was not created :("

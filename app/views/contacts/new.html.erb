@@ -18,16 +18,15 @@
                 <div data-role="fieldcontain">
                     <fieldset data-role="controlgroup">
                         <label for="textinput8">
-                            Phone number
                         </label>
-                        <input id="textinput8" placeholder="" name="contact[mobile]" value="" type="tel" />
+                        <input id="textinput8" placeholder="Phone number" name="contact[phone_numbers_attributes][number]" value="" type="tel" />
                     </fieldset>
                 </div>
                 <div data-role="fieldcontain">
                     <label for="selectmenu1">
                         Phone type
                     </label>
-                    <select id="selectmenu1" data-theme="e" data-mini="false">
+                    <select id="selectmenu1" name="contact[phone_numbers_attributes][name]" data-theme="e" data-mini="false">
                         <option value="mobile">
                             mobile
                         </option>
@@ -47,7 +46,13 @@
                         <input id="textinput9" placeholder="" value="" name="contact[email]" type="email" />
                     </fieldset>
                 </div>
+                <div data-role="collapsible">
+                    <h3>Requirements</h3>
+                      <%= render partial: 'requirement_form' %>
+                    </div>
                 <input type="submit" value="Create" data-theme="b" />
             </div>
         </div>
 <% end %> 
+
+

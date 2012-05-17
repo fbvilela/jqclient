@@ -4,7 +4,7 @@
         <label for="textinput1">
             iDashboard login
         </label>
-        <input id="textinput1" placeholder="" value="" type="text" name="login" />
+        <input id="textinput1" placeholder="" value="<%= cookies['username'] %>" type="text" name="login" />
     </fieldset>
 </div>
 <div data-role="fieldcontain">
@@ -12,7 +12,7 @@
         <label for="textinput2">
             iDashboard password
         </label>
-        <input id="textinput2" placeholder="" value="" type="password" name="password" />
+        <input id="textinput2" placeholder="" value="<%= cookies['password']%>" type="password" name="password" />
     </fieldset>
 </div>
 <div data-role="fieldcontain">

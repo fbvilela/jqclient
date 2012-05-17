@@ -1,9 +1,12 @@
 require 'net/http'
 class UsersController < ApplicationController
   def sign_in
-  	
-  	login = params[:login]
+    login = params[:login]
   	password = params[:password]
+    unless params['remember'].blank?
+      cookies['username'] = login
+      cookies['password'] = password
+    end 
   	uri = URI(Rails.configuration.idashboard_url+'/oauth/token')
 	res = Net::HTTP.post_form(uri, 'client_id' => Rails.configuration.app_key, 'client_secret' => Rails.configuration.app_secret, 'grant_type' => 'password', 'username' => login, 'password' => password )
 	if res.code == '200'
@@ -13,6 +16,7 @@ class UsersController < ApplicationController
     redirect_to "/contacts/index"
 	else
 		flash[:notice] = "Invalid username or password."
+    redirect_to page_path('index')
 	end
 	
   end

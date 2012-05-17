@@ -1,6 +1,7 @@
 Jqclient::Application.routes.draw do
   post "users/sign_in"
-
+  
+  match 'users/sign_in' ,:to => 'contacts#index', :via => 'get'
   get "users/sign_out"
 
   get "contacts/index"
