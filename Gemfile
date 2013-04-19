@@ -8,7 +8,8 @@ gem 'oauth2'
 #gem 'mysql2'
 gem 'high_voltage'
 
-gem 'sqlite3'
+#gem 'sqlite3'
+gem 'pg'
 
 #  used only for assets and not required
 # in production environments by default.
