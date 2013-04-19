@@ -2,8 +2,8 @@ class ContactsController < ApplicationController
 
   def index
   	Contact.token = session[:access_token]
-    temps = Contact.find(:all)
-    @contacts = temps.collect{ |t| Contact.find(t.id) }
+    temps = Contact.find(:all) # /api/contacts
+    @contacts = temps.collect{ |t| Contact.find(t.id) } # /api/contacts/:id/
   end
 
   def create 
