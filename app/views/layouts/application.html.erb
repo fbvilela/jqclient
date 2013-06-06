@@ -16,14 +16,11 @@
 	     <% unless session[:access_token].blank? %>
 	       <div data-role="navbar">
 	         <ul>
-	           <li><a href="/contacts/index" data-role="button" data-icon="home" data-iconpos="left">My vendors</a></li>
-      	     <li><a href="/contacts/index" data-role="button" data-icon="home" data-iconpos="left">My landlords</a></li>
-         
-             <li><a href="/contacts/index" data-role="button" data-icon="home" data-iconpos="left">My tenants</a></li>
+	           <li><a href="/contacts/vendors" data-role="button" data-icon="home" data-iconpos="left">My vendors</a></li>
+      	     <li><a href="/contacts/landlords" data-role="button" data-icon="home" data-iconpos="left">My landlords</a></li>
              <li><a href="/contacts/new" data-role="button" data-icon="plus" data-iconpos="left">New contact</a></li>
            </ul>
           </div>
-          <h1>prototype V.1</h1>
        <% else %>
         <h1>iContacts prototype V.1</h1>
        <% end %>

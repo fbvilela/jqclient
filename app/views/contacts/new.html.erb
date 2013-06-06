@@ -1,5 +1,6 @@
 <%= form_tag("/contacts/create") do %>
 <div data-role="fieldcontain">
+	<%= select(:contact, "contact_attribute_ids", contact_categories)%>
                     <fieldset data-role="controlgroup" data-mini="true">
                         <label for="textinput6">
                             First name

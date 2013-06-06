@@ -1,0 +1,9 @@
+
+<ul data-role="listview" data-divider-theme="b" data-filter="true" data-filter-placeholder="Search contacts..." data-inset="true">
+    <li data-role="list-divider" role="heading">
+        <%= @vendors_landlords.count %> <%= @page_name.camelize %> Found
+    </li>
+	<%= render partial: 'vendors_landlords_item', collection: @vendors_landlords, as: :item %>	
+
+
+</ul>

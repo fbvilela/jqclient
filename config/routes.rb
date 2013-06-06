@@ -5,6 +5,8 @@ Jqclient::Application.routes.draw do
   get "users/sign_out"
 
   get "contacts/index"
+  get 'contacts/vendors'
+  get 'contacts/landlords'
 
   get "contacts/new"
 

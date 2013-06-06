@@ -1,0 +1,6 @@
+<li data-theme="">
+   <a href="email:+<%= item.contact["mobile"] %>" data-transition="slide">
+       <%= item.contact['name'] %> <%= "- Mobile: #{item.contact['mobile']}" unless item.contact['mobile'].blank? %> -- <%= item.listing["address"] %>
+    </a>
+</li>
+

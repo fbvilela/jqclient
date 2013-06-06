@@ -36,7 +36,7 @@ Jqclient::Application.configure do
   config.assets.debug = true
 
   # api connection related 
-  config.idashboard_url = "http://www.idashboard.com.au"
+  config.idashboard_url = "http://megatron.idashboard.com.au"
   config.app_key = "Xq06Sz92IYGAKXWuALO53K3y6EMy7xlDF0q4Fi7L"
   config.app_secret = "kICGk78VnE6Zq8fkFyxdRrAUnwsl3mzj403ENXtg"
 end

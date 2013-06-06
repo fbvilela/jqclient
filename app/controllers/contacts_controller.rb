@@ -5,6 +5,18 @@ class ContactsController < ApplicationController
     temps = Contact.find(:all) # /api/contacts
     @contacts = temps.collect{ |t| Contact.find(t.id) } # /api/contacts/:id/
   end
+  
+  def vendors
+    @page_name = "vendors"
+    @vendors_landlords = current_user.vendors
+    render "vendors_landlords"
+  end
+  
+  def landlords
+    @page_name = "landlords"
+    @vendors_landlords = current_user.landlords
+    render "vendors_landlords"
+  end
 
   def create 
   	puts session[:access_token]
@@ -16,7 +28,6 @@ class ContactsController < ApplicationController
     params['requirement']['max_price'] = max
 
     contact = Contact.new( params['contact'] )
-    
   	if contact.save
       unless params['requirement']['name'].blank? 
         requirement = Requirement.new(params['requirement'])
