@@ -38,4 +38,6 @@ gem 'httparty'
  gem 'capistrano'
 
 # To use debugger
+group :development do 
  gem 'ruby-debug19', :require => 'ruby-debug'
+end
