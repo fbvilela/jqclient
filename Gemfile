@@ -31,6 +31,6 @@ group :development do
  gem 'capistrano'
 end
 
-group :production do 
+group :staging do 
  gem 'pg'
 end

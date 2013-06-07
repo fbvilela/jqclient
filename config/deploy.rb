@@ -1,15 +1,30 @@
+#require 'new_relic/recipes'
 set :application, "jqclient"
 set :repository,  "git@github.com:fbvilela/jqclient.git"
 
 set :scm, :git
-set :user, "fbvilela"
-set :deploy_to, "/home/fbvilela/#{application}"
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :user, "ec2-user"
 
-role :web, "208.113.248.63"                          # Your HTTP server, Apache/etc
-role :app, "208.113.248.63"                          # This may be the same as your `Web` server
-role :db,  "208.113.248.63", :primary => true # This is where Rails migrations will run
-role :db,  "208.113.248.63"
+task :production do 
+  
+  default_run_options[:pty] = true
+  set :rails_env, "production"
+  ssh_options[:user] = "ec2-user"
+  ssh_options[:keys] = [File.join("~/.ssh/iproperty-sydney-ec2.pem")]
+    
+  role :web, "ec2-54-252-64-51.ap-southeast-2.compute.amazonaws.com"                          # Your HTTP server, Apache/etc
+  role :app, "ec2-54-252-64-51.ap-southeast-2.compute.amazonaws.com"                          # This may be the same as your `Web` server
+  role :db,  "ec2-54-252-64-51.ap-southeast-2.compute.amazonaws.com", :primary => true # This is where Rails migrations will run
+  role :db,  "ec2-54-252-64-51.ap-southeast-2.compute.amazonaws.com"
+
+  #after 'deploy:finalize_update', 'deploy:restart_passenger'
+  #after "deploy:finalize_update", "newrelic:notice_deployment"
+end
+
+task :staging do 
+  puts "Deploying to staging is easy \n Just push it to Heroku with 'git push heroku master'"
+  exit 0    
+end
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
@@ -21,4 +36,9 @@ role :db,  "208.113.248.63"
    task :restart, :roles => :app, :except => { :no_release => true } do
      #run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
    end
+   
+   task :restart_passenger do
+    # run "touch #{current_path}/tmp/restart.txt"
+   end
+   
  end
