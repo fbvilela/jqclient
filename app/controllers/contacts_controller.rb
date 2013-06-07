@@ -26,10 +26,11 @@ class ContactsController < ApplicationController
     min, max = params['requirement_price'].split("_")
     params['requirement']['min_price'] = min 
     params['requirement']['max_price'] = max
-
+    params['contact']['contact_attribute_ids'] = [params['contact']['contact_attribute_ids']]
     contact = Contact.new( params['contact'] )
   	if contact.save
       unless params['requirement']['name'].blank? 
+        params['requirement']['postal_area_names'] = [params['requirement']['postal_area_names'] ]
         requirement = Requirement.new(params['requirement'])
         requirement.prefix_options = {:contact_id => contact.id}
         requirement.save

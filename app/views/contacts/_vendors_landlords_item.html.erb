@@ -1,6 +1,14 @@
-<li data-theme="">
-   <a href="email:+<%= item.contact["mobile"] %>" data-transition="slide">
-       <%= item.contact['name'] %> <%= "- Mobile: #{item.contact['mobile']}" unless item.contact['mobile'].blank? %> -- <%= item.listing["address"] %>
-    </a>
-</li>
-
+<li>
+  <div class="swiper-container">
+ <div class="swiper-wrapper">
+ <!--First Slide-->
+ <div class="swiper-slide">
+ <h1><%= item.contact['name'] %> <%= "- Mobile: #{item.contact['mobile']}" unless item.contact['mobile'].blank? %> -- <%= item.listing["address"] %></h1>
+ </div>
+ <!--Second Slide-->
+ <div class="swiper-slide" >
+ <h1>Call | Email | Edit | Delete</h1>
+ </div>
+ </div><!-- swiper wrapper -->
+ </div><!-- swiper container -->
+ </li>
