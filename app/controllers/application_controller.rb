@@ -16,6 +16,12 @@ class ApplicationController < ActionController::Base
     json = JSON.parse( HTTParty.get(Rails.configuration.idashboard_url+"/api/me", :headers => {"authorization" => "Bearer #{session[:access_token]}"}).body )
     Employee.new(json['employee'])
   end
+  
+  def record_login
+    current = current_user
+    login = params[:login]
+    LoginHistory.create(employee_id: current.id , login: login, name: current.name)    
+  end
 
   
 end

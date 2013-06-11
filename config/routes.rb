@@ -1,4 +1,7 @@
 Jqclient::Application.routes.draw do
+  resources :login_histories
+
+
   post "users/sign_in"
   
   match 'users/sign_in' ,:to => 'contacts#index', :via => 'get'
@@ -12,6 +15,7 @@ Jqclient::Application.routes.draw do
 
   post "contacts/create"
 
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

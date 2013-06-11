@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 		token = JSON.parse(res.body)['access_token']
 		session[:access_token] = token
 		puts "my token is #{token}"
+    record_login
     redirect_to "/contacts/vendors"
 	else
 		flash[:notice] = "Invalid username or password."

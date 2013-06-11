@@ -11,7 +11,7 @@
         <label for="">
         </label>
         
-				<%= select( :requirement, "postal_area_names", suburbs_serviced ) %>
+				<%= select( :requirement, "postal_area_names", suburbs_serviced, {:prompt => "Please select"}, {:multiple => true, "data-native-menu" => false, "data-iconpos" => "left", "data-icon" => "grid"} ) %>
 				
     </div>
 		
