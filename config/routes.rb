@@ -7,13 +7,14 @@ Jqclient::Application.routes.draw do
   match 'users/sign_in' ,:to => 'contacts#index', :via => 'get'
   get "users/sign_out"
 
-  get "contacts/index"
+  #get "contacts/index"
   get 'contacts/vendors'
   get 'contacts/landlords'
 
-  get "contacts/new"
+  resources :contacts
+#  get "contacts/new"
 
-  post "contacts/create"
+ # post "contacts/create"
 
   
   # The priority is based upon order of creation:

@@ -1,0 +1,87 @@
+<div class="whiteBg"></div>
+<div class="pageTitle">
+  <h1><%= @contact.name rescue nil || "New contact" %></h1>
+</div> 
+
+  <div class="addNew">
+    <%= form_for(@contact) do |form|%>
+      <div class="input-custom">
+        <span class="icon-angle-down"></span>
+        <%= form.select(:contact_attribute_ids, contact_categories, :html => {:name => "contact[contact_attribute_ids][]"})%>
+      </div>
+      <div class="input-custom">
+        <span class="icon-user"></span>
+				<%= form.text_field :first_name, placeholder: "First Name" %>
+      </div>
+      <div class="input-custom">
+        <span class="icon-lock"></span>
+        <%= form.text_field :last_name, placeholder: "Last Name" %>
+      </div>
+      <div class="input-custom">
+        <span class="icon-envelope-alt"></span>
+        <%= form.text_field :email, placeholder: "Email" %>
+      </div>
+      
+      <div class="input-custom">
+        <%= form.select("phone_numbers_attributes", options_for_select( [ ["Mobile", "mobile"] , ["Home phone","home"], ["Work Phone","work"] ]), :html => { :name => "contact[phone_numbers_attributes][name]", :class => "phoneNumber"}) %>
+        <%= form.text_field "phone_numbers_attributes", placeholder: "Phone Number", class: "phoneNumber", type: "number", name: "contact[phone_numbers_attributes][number]"%>
+      </div>
+      
+      <div class="input-custom">
+        <span class="icon-pencil"></span>
+        <textarea style="height:100px;" placeholder="Add a note"></textarea>
+      </div>
+      
+      <a class="requirements clearfix btn" data-toggle="collapse" data-target="#requirements">
+        Requirements
+        <i class="icon-plus-sign"></i>
+      </a>
+      <div id="requirements" class="collapse out">
+        <div class="input-custom">
+          <span class="icon-user"></span>
+          <input type="text" placeholder="Requirement Name" name="requirement[name]">
+        </div>
+        
+        <div class="input-custom">
+          <p class="selectSuburb">Suburbs of interest</p>
+          <span class="icon-angle-down"></span>
+          
+					<%= select( :requirement, "postal_area_names", suburbs_serviced, {:prompt => "Please select"}, {:multiple => true} ) %>
+        </div>
+        
+        <div class="input-custom">
+          <span class="icon-angle-down"></span>
+          <select name="requirement[requirement_category]">
+            <option value="residential_sale">Buy</option>
+            <option value="residential_lease">Rent</option>
+          </select>
+        </div>
+        
+        <div class="input-custom">
+          <span class="icon-tag"></span>
+          <input type="text" placeholder="Type Price">
+        </div>
+        
+        <div class="input-custom">
+          <select class="bedBathCars">
+            <option>Beds</option>
+            <option>1+</option>
+            <option>2+</option>
+          </select>
+          
+          <select class="bedBathCars last">
+            <option>Baths</option>
+            <option>1+</option>
+            <option>2+</option>
+          </select>
+          
+          <select class="bedBathCars last">
+            <option>Cars</option>
+            <option>1+</option>
+            <option>2+</option>
+          </select>
+        </div>
+      </div><!-- requirements-->
+      <button type="submit" class="btnCustom">Create <i class="icon-double-angle-right"></i></button>
+			<%end%>
+  </div><!-- addNew-->

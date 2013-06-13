@@ -1,30 +1,22 @@
-<%= form_tag("/users/sign_in") do %>
-<div data-role="fieldcontain">
-    <fieldset data-role="controlgroup">
-        <label for="textinput1">
-            iDashboard login
-        </label>
-        <input id="textinput1" placeholder="" value="<%= cookies['username'] %>" type="text" name="login" />
-    </fieldset>
-</div>
-<div data-role="fieldcontain">
-    <fieldset data-role="controlgroup">
-        <label for="textinput2">
-            iDashboard password
-        </label>
-        <input id="textinput2" placeholder="" value="<%= cookies['password']%>" type="password" name="password" />
-    </fieldset>
-</div>
-<div data-role="fieldcontain">
-    <fieldset data-role="controlgroup" data-type="vertical">
-        <legend>
-        </legend>
-        <input name="remember" id="checkbox1" type="checkbox" />
-        <label for="checkbox1">
-            Remember me
-        </label>
-    </fieldset>
-</div>
-<input type="submit" data-transition="fade" data-theme="b" data-icon="check" data-iconpos="right" value="Connect"/>
 
-<% end %>
+<div class="login">
+  <img class="logo" src="/assets/logo.png" />
+  <div class="tagline"><%= flash[:notice] || "All your contacts wherever you are." %></div>
+  <div class="login-wrap">
+    <%= form_tag("/users/sign_in", :id => "login_form") do %>
+      <div class="input-custom">
+        <span class="icon-user"></span>
+        <input type="email" placeholder="Username" name="login">
+      </div>
+      <div class="input-custom">
+        <span class="icon-lock"></span>
+        <input type="password" placeholder="Password" name="password">
+      </div>
+      <button type="submit" class="btn btnCustom" form="login_form">GO <i class="icon-double-angle-right"></i></button>
+			<% end %>
+  </div><!-- wrap login -->
+</div><!-- login-->	
+
+
+
+

@@ -14,10 +14,10 @@ class UsersController < ApplicationController
 		session[:access_token] = token
 		puts "my token is #{token}"
     record_login
-    redirect_to "/contacts/vendors"
+    redirect_to page_path("menu")
 	else
 		flash[:notice] = "Invalid username or password."
-    redirect_to page_path('index')
+    redirect_to "/"
 	end
 	
   end

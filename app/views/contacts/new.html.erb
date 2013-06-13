@@ -1,5 +1,5 @@
-<%= form_tag("/contacts/create") do %>
-<div data-role="fieldcontain">
+<%= render 'form' %>
+<!--div data-role="fieldcontain">
 	<%= select(:contact, "contact_attribute_ids", contact_categories, :html => {:name => "contact[contact_attribute_ids][]"})%>
                     <fieldset data-role="controlgroup" data-mini="true">
                         <label for="textinput6">
@@ -53,7 +53,7 @@
                     </div>
                 <input type="submit" value="Create" data-theme="b" />
             </div>
-        </div>
-<% end %> 
+        </div-->
+
 
 

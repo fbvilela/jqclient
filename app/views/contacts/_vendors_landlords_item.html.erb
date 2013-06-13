@@ -1,14 +1,46 @@
 <li>
-  <div class="swiper-container">
- <div class="swiper-wrapper">
- <!--First Slide-->
- <div class="swiper-slide">
- <h1><%= item.contact['name'] %> <%= "- Mobile: #{item.contact['mobile']}" unless item.contact['mobile'].blank? %> -- <%= item.listing["address"] %></h1>
- </div>
- <!--Second Slide-->
- <div class="swiper-slide" >
- <h1>Call | Email | Edit | Delete</h1>
- </div>
- </div><!-- swiper wrapper -->
- </div><!-- swiper container -->
- </li>
+	<div class="swiper-container">
+	  <div class="swiper-wrapper">
+  
+	    <!--First Slide-->
+	    <div class="swiper-slide slide1">
+	      <h1><%= item.contact["name"] %></h1>
+	      <h2><i class="icon-home"></i> <%= item.listing["address"] %></h2>
+	      <h2><i class="icon-phone"></i> <%= !item.contact["mobile"].strip.blank? ? item.contact["mobile"] : "Unknown" %></h2>
+	      <span class="icon-angle-right"></span>
+	    </div>
+    
+	    <!--Second Slide-->
+	    <div class="swiper-slide slide2">
+    
+	      <a class="action" href="tel:<%=item.contact["mobile"]%>">
+	        <div class="inner">  
+	          <i class="icon-phone"></i>
+	          <p>Call</p>
+	        </div>
+	      </a>  
+      
+	      <a class="action" href="mailto:<%= item.contact["email"]%>">
+	        <div class="inner">
+	          <i class="icon-envelope-alt"></i>
+	          <p>Email</p>
+	        </div>
+	      </a>
+      
+	      <a class="action" href="#">
+	        <div class="inner">
+	          <i class="icon-pencil"></i>
+	          <p>Edit</p>
+	        </div>
+	      </a>
+      
+	      <a class="action" href="#">
+	        <div class="inner last">
+	          <i class="icon-paper-clip"></i>
+	          <p>Note</p>
+	        </div>
+	      </a> 
+	    </div><!-- slide2-->
+	  </div><!-- swiper wrapper -->
+	</div><!-- swiper container -->
+</li>

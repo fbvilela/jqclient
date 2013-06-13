@@ -6,14 +6,20 @@ class ContactsController < ApplicationController
     @contacts = temps.collect{ |t| Contact.find(t.id) } # /api/contacts/:id/
   end
   
+  def new 
+    phone_numbers_attributes = {name: nil, number: nil }
+    @contact = Contact.new(first_name: nil, contact_attribute_ids: nil, last_name: nil, email: nil, phone_numbers_attributes: phone_numbers_attributes )
+    
+  end
+  
   def vendors
-    @page_name = "vendors"
+    @page_name = "Vendors"
     @vendors_landlords = current_user.vendors
     render "vendors_landlords"
   end
   
   def landlords
-    @page_name = "landlords"
+    @page_name = "Landlords"
     @vendors_landlords = current_user.landlords
     render "vendors_landlords"
   end
