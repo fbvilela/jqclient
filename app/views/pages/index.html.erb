@@ -6,13 +6,13 @@
     <%= form_tag("/users/sign_in", :id => "login_form") do %>
       <div class="input-custom">
         <span class="icon-user"></span>
-        <input type="email" placeholder="Username" name="login">
+        <input type="text" placeholder="Username" name="login">
       </div>
       <div class="input-custom">
         <span class="icon-lock"></span>
         <input type="password" placeholder="Password" name="password">
       </div>
-      <button type="submit" class="btn btnCustom" form="login_form">GO <i class="icon-double-angle-right"></i></button>
+       <button type="submit" class="btn btnCustom" form="login_form">GO <i class="icon-double-angle-right"></i></button>
 			<% end %>
   </div><!-- wrap login -->
 </div><!-- login-->	

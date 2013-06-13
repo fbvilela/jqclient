@@ -4,7 +4,7 @@
 </div> 
 
   <div class="addNew">
-    <%= form_for(@contact) do |form|%>
+    <%= form_for(@contact, id: "contact_form") do |form|%>
       <div class="input-custom">
         <span class="icon-angle-down"></span>
         <%= form.select(:contact_attribute_ids, contact_categories, :html => {:name => "contact[contact_attribute_ids][]"})%>
@@ -19,11 +19,11 @@
       </div>
       <div class="input-custom">
         <span class="icon-envelope-alt"></span>
-        <%= form.text_field :email, placeholder: "Email" %>
+        <%= form.text_field :email, placeholder: "Email", type: "email" %>
       </div>
       
       <div class="input-custom">
-        <%= form.select("phone_numbers_attributes", options_for_select( [ ["Mobile", "mobile"] , ["Home phone","home"], ["Work Phone","work"] ]), :html => { :name => "contact[phone_numbers_attributes][name]", :class => "phoneNumber"}) %>
+        <%= select("contact[phone_numbers_attributes]", "name" , options_for_select( [ ["Mobile", "mobile"] , ["Home phone","home"], ["Work Phone","work"] ]), :class => "phoneNumber") %>
         <%= form.text_field "phone_numbers_attributes", placeholder: "Phone Number", class: "phoneNumber", type: "number", name: "contact[phone_numbers_attributes][number]"%>
       </div>
       
@@ -52,36 +52,35 @@
         <div class="input-custom">
           <span class="icon-angle-down"></span>
           <select name="requirement[requirement_category]">
-            <option value="residential_sale">Buy</option>
-            <option value="residential_lease">Rent</option>
+            <option value="residential_sale">Looking to Buy</option>
+            <option value="residential_lease">Looking to Rent</option>
           </select>
         </div>
         
-        <div class="input-custom">
+        <div class="input-custom" style="width:50%">
           <span class="icon-tag"></span>
-          <input type="text" placeholder="Type Price">
+          <input type="number" placeholder="Min Price" name="requirement[min_price]">
+        </div>
+				
+        <div class="input-custom" style="width:50%">
+          <span class="icon-tag"></span>
+          <input type="number" placeholder="Max Price" name="requirement[max_price]">
         </div>
         
         <div class="input-custom">
-          <select class="bedBathCars">
-            <option>Beds</option>
-            <option>1+</option>
-            <option>2+</option>
+          <select class="bedBathCars" name="requirement[min_bedrooms]">
+            <%= options_for_select( [ ["Beds", nil] , ["1+", "1"], ["2+", "2"], ["3+", "3"], ["4+", "4"], ["5+", "5"] ])%>
           </select>
           
-          <select class="bedBathCars last">
-            <option>Baths</option>
-            <option>1+</option>
-            <option>2+</option>
+          <select class="bedBathCars last" name="requirement[min_bathrooms]">
+            <%= options_for_select( [ ["Baths", nil] , ["1+", "1"], ["2+", "2"], ["3+", "3"], ["4+", "4"], ["5+", "5"] ])%>
           </select>
           
-          <select class="bedBathCars last">
-            <option>Cars</option>
-            <option>1+</option>
-            <option>2+</option>
+          <select class="bedBathCars last" name="requirement[min_car_parks]">
+            <%= options_for_select( [ ["Car Parks", nil] , ["1+", "1"], ["2+", "2"], ["3+", "3"], ["4+", "4"], ["5+", "5"] ])%>
           </select>
         </div>
       </div><!-- requirements-->
-      <button type="submit" class="btnCustom">Create <i class="icon-double-angle-right"></i></button>
-			<%end%>
+      <button type="submit" class="btnCustom" form="new_contact">Create <i class="icon-double-angle-right"></i></button>
+		<%end%>
   </div><!-- addNew-->
