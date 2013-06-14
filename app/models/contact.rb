@@ -8,6 +8,9 @@ class Contact < ActiveResource::Base
   self.collection_name = 'contacts'
   #self.format = :json
   
+  attr_accessor :contact_attribute_ids
+  attr_accessor :phone_numbers_attributes
+  
   def self.token=(token)
   	self.headers['authorization'] = 'Bearer ' + token
   end
@@ -29,7 +32,7 @@ class Contact < ActiveResource::Base
     end
   end
   
-  def add_note(text,author,token=nil)
+  def add_note(text,author, token=nil)
     params = { :contact => { :notes_attributes => [ {:note_body => text, :date_added => Time.now, :author => author} ]
       }
     }
@@ -37,7 +40,7 @@ class Contact < ActiveResource::Base
     
     response = conn.put do |req|
       req.url "/api/contacts/#{self.id}"
-      req.headers['authorization'] = "Bearer #{token}"
+      req.headers['authorization'] = "Bearer #{token}" if token
       req.params = params
     end
     
@@ -57,13 +60,22 @@ class Contact < ActiveResource::Base
   #end
   
   #  NOT YET BEING USED.
-  def faraday_update
+  def faraday_update(params)
+    
+    puts "inspecting params"
+    params.delete("id")
+    puts params.inspect
+    
+    puts "***********************************"
 
     conn = Faraday.new(:url => Rails.configuration.idashboard_url)   
     response = conn.put do |req|
       req.url "/api/contacts/#{self.id}"
-      req.headers['authorization'] = "Bearer #{token}"
+      #req.headers['authorization'] = "Bearer #{token}" if 
+      req.params = params
     end
+    puts response.inspect
+    response.status == 200
     
   end
     

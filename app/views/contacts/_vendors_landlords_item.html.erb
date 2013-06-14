@@ -27,12 +27,12 @@
 	        </div>
 	      </a>
       
-	      <a class="action" href="#">
+				<%= link_to edit_contact_path(:id => item.contact["id"]), {:class => "action"} do %>
 	        <div class="inner">
 	          <i class="icon-pencil"></i>
 	          <p>Edit</p>
 	        </div>
-	      </a>
+				<%end%>
       
 	      <a class="action" href="#">
 	        <div class="inner last">

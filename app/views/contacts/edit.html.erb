@@ -1,0 +1,40 @@
+<div class="whiteBg"></div>
+<div class="pageTitle">
+  <h1>Editing <%= @contact.name %></h1>
+</div> 
+
+  <div class="addNew">
+    <%= form_for(@contact, id: "contact_form") do |form|%>
+      <div class="input-custom">
+        <span class="icon-angle-down"></span>
+        <%= form.select(:contact_attribute_ids, options_for_select( contact_categories, (@contact.contact_attributes.first.id rescue nil) ), :html => {:name => "contact[contact_attribute_ids][]"})%>
+      </div>
+      <div class="input-custom">
+        <span class="icon-user"></span>
+				<%= form.text_field :first_name, placeholder: "First Name" %>
+      </div>
+      <div class="input-custom">
+        <span class="icon-lock"></span>
+        <%= form.text_field :last_name, placeholder: "Last Name" %>
+      </div>
+      <div class="input-custom">
+        <span class="icon-envelope-alt"></span>
+        <%= form.text_field :email, placeholder: "Email", type: "email" %>
+      </div>
+      
+			<% unless @contact.phone_numbers.blank? %>
+			  <%= hidden_field_tag "contact[phone_numbers_attributes][id]", @contact.phone_numbers.first.id %>
+			<% end %>
+      <div class="input-custom">
+        <%= select("contact[phone_numbers_attributes]", "name" , options_for_select( [ ["Mobile", "Mobile"] , ["Home phone","Home"], ["Work Phone","Work"] ], (@contact.phone_numbers.first.name rescue nil)), :class => "phoneNumber") %>
+        <%= form.text_field "phone_numbers_attributes", placeholder: "Phone Number", class: "phoneNumber", name: "contact[phone_numbers_attributes][number]", value: ( @contact.phone_numbers.first.number rescue nil)%>
+      </div>
+      
+      <div class="input-custom">
+        <span class="icon-pencil"></span>
+        <textarea style="height:100px;" placeholder="Add a note" name="note"></textarea>
+      </div>
+      
+      <button type="submit" class="btnCustom" form="edit_contact_<%=@contact.id%>">Save <i class="icon-double-angle-right"></i></button>
+		<%end%>
+  </div><!-- addNew-->

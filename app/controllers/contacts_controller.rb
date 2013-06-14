@@ -1,5 +1,17 @@
 class ContactsController < ApplicationController
-
+  
+  before_filter :set_token, only: [:create,:update]
+  before_filter :load_contact, only: [:edit,:update]
+  
+  def set_token
+  	Contact.token = session[:access_token]
+    Requirement.token = session[:access_token]
+  end
+  
+  def load_contact
+    @contact = Contact.find(params[:id])
+  end
+  
   def index
   	Contact.token = session[:access_token]
     temps = Contact.find(:all) # /api/contacts
@@ -10,6 +22,25 @@ class ContactsController < ApplicationController
     phone_numbers_attributes = {name: nil, number: nil }
     @contact = Contact.new(first_name: nil, contact_attribute_ids: nil, last_name: nil, email: nil, phone_numbers_attributes: phone_numbers_attributes )
     
+  end
+  
+  def edit
+    # do nothing just render
+  end
+  
+  def update
+    params['contact']['contact_attribute_ids'] = [params['contact']['contact_attribute_ids']]
+    note = params["note"]
+    if @contact.faraday_update( params )
+      unless note.blank? 
+        @contact.add_note(note,current_user.name)
+      end 
+      flash[:notice] = "success"
+      redirect_to page_path("menu")
+    else
+      flash[:notice] = "problem updating the contact"
+      redirect_to edit_contact_path(id: @contact.id)
+    end
   end
   
   def vendors
@@ -25,12 +56,15 @@ class ContactsController < ApplicationController
   end
 
   def create 
-  	Contact.token = session[:access_token]
-    Requirement.token = session[:access_token]
+  	
     
     params['contact']['contact_attribute_ids'] = [params['contact']['contact_attribute_ids']]
+    note = params["note"]
     contact = Contact.new( params['contact'] )
   	if contact.save
+      unless note.blank? 
+        contact.add_note(note, current_user.name)
+      end
       unless params['requirement']['name'].blank? 
         params['requirement']['postal_area_names'] = [params['requirement']['postal_area_names'] ]
         requirement = Requirement.new(params['requirement'])
