@@ -21,7 +21,6 @@ class ContactsController < ApplicationController
   def new 
     phone_numbers_attributes = {name: nil, number: nil }
     @contact = Contact.new(first_name: nil, contact_attribute_ids: nil, last_name: nil, email: nil, phone_numbers_attributes: phone_numbers_attributes )
-    
   end
   
   def edit
@@ -29,13 +28,18 @@ class ContactsController < ApplicationController
   end
   
   def update
-    params['contact']['contact_attribute_ids'] = [params['contact']['contact_attribute_ids']]
+
     note = params["note"]
-    if @contact.faraday_update( params )
+    @contact.attributes = params['contact']
+    @contact.id = params['id']
+    @contact.contact_attribute_ids = [params['contact']['contact_attribute_ids']]
+    @contact.phone_numbers_attributes = params['contact']['phone_numbers_attributes']
+
+    if @contact.save
       unless note.blank? 
         @contact.add_note(note,current_user.name)
       end 
-      flash[:notice] = "success"
+      flash[:notice] = "Contact updated!"
       redirect_to page_path("menu")
     else
       flash[:notice] = "problem updating the contact"

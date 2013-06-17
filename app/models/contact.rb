@@ -55,26 +55,30 @@ class Contact < ActiveResource::Base
     end
   end
   
-  #def save
-  #  self.new_record? ? super : faraday_update
-  #end
+  def to_my_params
+    { 
+      :contact => 
+      {
+        first_name: self.first_name, last_name: self.last_name, contact_attribute_ids: self.contact_attribute_ids, email: self.email,
+        :phone_numbers_attributes => { self.phone_numbers_attributes.delete("id").to_sym  =>  self.phone_numbers_attributes }
+       } 
+    }
+  end
   
-  #  NOT YET BEING USED.
-  def faraday_update(params)
+  def save
+    self.new_record? ? super : faraday_update
+  end
+  
+  def faraday_update()
     
-    puts "inspecting params"
-    params.delete("id")
-    puts params.inspect
-    
-    puts "***********************************"
-
     conn = Faraday.new(:url => Rails.configuration.idashboard_url)   
     response = conn.put do |req|
       req.url "/api/contacts/#{self.id}"
       #req.headers['authorization'] = "Bearer #{token}" if 
-      req.params = params
+      req.params = self.to_my_params
     end
     puts response.inspect
+
     response.status == 200
     
   end

@@ -2,7 +2,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   before_filter :check_auth
-
+  before_filter :receive_token
+  
+  def receive_token
+    unless params[:token].blank? 
+      session[:access_token] = params[:token]
+    end  
+  end
 
   def check_auth
     #redirect_to page_path('index') unless session[:access_token]
