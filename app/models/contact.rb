@@ -12,7 +12,7 @@ class Contact < ActiveResource::Base
   attr_accessor :phone_numbers_attributes
   
   def self.token=(token)
-  	self.headers['authorization'] = 'Bearer ' + token
+  	self.headers['authorization'] = 'Bearer ' + token unless token.blank? 
   end
   
   def self.categories(token=nil)

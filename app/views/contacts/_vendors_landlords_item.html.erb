@@ -1,17 +1,17 @@
 <li>
-	<div class="swiper-container">
+	<div class="swiper-container" id="swiper_<%= item.contact['id']%>" >
 	  <div class="swiper-wrapper">
   
 	    <!--First Slide-->
-	    <div class="swiper-slide slide1">
+	    <div class="swiper-slide slide1" id="slide1_<%= item.contact['id']%>">
 	      <h1><%= item.contact["name"] %></h1>
 	      <h2><i class="icon-home"></i> <%= item.listing["address"] %></h2>
 	      <h2><i class="icon-phone"></i> <%= !item.contact["mobile"].strip.blank? ? item.contact["mobile"] : "Unknown" %></h2>
-	      <span class="icon-angle-right"></span>
+				<span class="icon-angle-right" onClick="slide_next('swiper_<%= item.contact['id']%>');"></span>
 	    </div>
     
 	    <!--Second Slide-->
-	    <div class="swiper-slide slide2">
+	    <div class="swiper-slide slide2" id="slide2_<%= item.contact['id']%>">
     
 	      <a class="action" href="tel:<%=item.contact["mobile"]%>">
 	        <div class="inner">  
@@ -34,12 +34,12 @@
 	        </div>
 				<%end%>
       
-	      <a class="action" href="#">
+				<%= link_to add_note_contact_path( id: item.contact["id"]), {class: "action"} do %>
 	        <div class="inner last">
 	          <i class="icon-paper-clip"></i>
 	          <p>Note</p>
 	        </div>
-	      </a> 
+				<% end %> 
 	    </div><!-- slide2-->
 	  </div><!-- swiper wrapper -->
 	</div><!-- swiper container -->

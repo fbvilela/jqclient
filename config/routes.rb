@@ -11,11 +11,17 @@ Jqclient::Application.routes.draw do
   get 'contacts/vendors'
   get 'contacts/landlords'
 
-  resources :contacts
-#  get "contacts/new"
-
- # post "contacts/create"
-
+  resources :contacts do
+    collection do 
+      post 'search'
+    end
+    member do 
+      get 'add_note' 
+      post 'add_note'
+    end
+      
+  end
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

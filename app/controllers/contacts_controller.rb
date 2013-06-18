@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
   
   before_filter :set_token, only: [:create,:update]
-  before_filter :load_contact, only: [:edit,:update]
+  before_filter :load_contact, only: [:edit,:update, :add_note]
   
   def set_token
   	Contact.token = session[:access_token]
@@ -12,10 +12,25 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
   end
   
+  def add_note
+    if params['note'] && @contact.add_note(params['note'], current_user.name)
+      flash[:notice] = "Note added!" 
+    else
+      render
+    end
+  end
+  
+  def search
+    @contacts = Contact.find( Contact.first.id ) 
+    render 'index'
+  end
+  
+  
   def index
   	Contact.token = session[:access_token]
     temps = Contact.find(:all) # /api/contacts
     @contacts = temps.collect{ |t| Contact.find(t.id) } # /api/contacts/:id/
+    @page_name = "Contacts"
   end
   
   def new 

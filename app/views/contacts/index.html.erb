@@ -1,9 +1,27 @@
-<div data-role="content">
-    <%= render partial: "nav_bar" %>
-    <ul data-role="listview" data-divider-theme="b" data-filter="true" data-filter-placeholder="Search contacts..." data-inset="true">
-        <li data-role="list-divider" role="heading">
-            <%= @contacts.count %> Contacts Found
-        </li>
-         <%= render :partial => 'contact_list', :collection => @contacts , :as => :contact %>
-    </ul>
+
+
+<div class="whiteBg"></div>
+<div style="">
+<%= form_tag(search_contacts_path, remote: false, class: "search-contacts clearfix", id: "search_form") do %>
+  <div class="input-custom">
+    <div class="inner">
+      <input type="text" placeholder="Search for contacts">
+    </div>
+    <span class="icon-search"></span>
+  </div>
+  <button type="submit" class="btnCustom" form="search_form"> GO <i class="icon-double-angle-right"></i></button>
+<%end%>
 </div>
+<% if @contacts.blank? %>
+	<p class="search-text">
+  	Search for your contacts<br>by typing on the search box above
+	</p>
+<% else %>
+<div class="rowo large">
+	 <ul class="wrap clearfix">
+		<%= render partial: 'contact', collection: @contacts %>	
+	</ul>
+</div>
+<% end %>
+
+<%= render partial: "nav_bar" %>
