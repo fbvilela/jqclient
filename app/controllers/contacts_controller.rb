@@ -21,7 +21,7 @@ class ContactsController < ApplicationController
   end
   
   def search
-    @contacts = Contact.find( Contact.first.id ) 
+    @contacts = Contact.search(params[:search])
     render 'index'
   end
   
