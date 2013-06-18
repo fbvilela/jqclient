@@ -70,7 +70,7 @@ class Contact < ActiveResource::Base
     response = conn.get do |req|
       req.url "/api/search_contacts"
       #req.headers['authorization'] = "Bearer #{token}" if 
-      req.params = {search: arg}
+      req.params = {search: arg, per_page: "50"}
     end    
     JSON.parse( response.body )['results']['contacts'].collect do |element|
       find( element['contact']['id'])
