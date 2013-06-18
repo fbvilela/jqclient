@@ -65,6 +65,18 @@ class Contact < ActiveResource::Base
     }
   end
   
+  def self.search(arg)
+    conn = Faraday.new(:url => Rails.configuration.idashboard_url)
+    response = conn.get do |req|
+      req.url "/api/search_contacts"
+      #req.headers['authorization'] = "Bearer #{token}" if 
+      req.params = {search: arg}
+    end    
+    JSON.parse( response.body )['results']['contacts'].collect do |element|
+      find( element['contact']['id'])
+    end
+  end
+  
   def save
     self.new_record? ? super : faraday_update
   end
