@@ -66,7 +66,7 @@ Jqclient::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # api connection related 
-  config.idashboard_url = "http://www.idashboard.com.au"
-  config.app_key = "Xq06Sz92IYGAKXWuALO53K3y6EMy7xlDF0q4Fi7L"
-  config.app_secret = "kICGk78VnE6Zq8fkFyxdRrAUnwsl3mzj403ENXtg"
+  config.idashboard_url = "http://megatron.idashboard.com.au"
+  config.app_key = "XrQ0mn5VHlbk5fhPuYUVyavBEqjsgD1of6DlhlM0"
+  config.app_secret = "qKKcy9hPFyBu2KCsgTJOxWt5W7vFoTpCV83L7wPF"
 end
