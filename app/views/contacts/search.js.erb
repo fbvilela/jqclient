@@ -1,1 +1,15 @@
-alert('you click search');
+$('#blank_contacts').hide();
+$('#contact_list').html('<%= j render(partial: 'contact', collection: @contacts)%>');
+$('#contact_list').parent().show();
+$('.swiper-container').each( function(){
+	$(this).swiper().swipePrev();
+});
+
+/**
+$('.rowo').css('margin-top', '1024px');
+$('.rowo').delay(200).animate({
+		marginTop: '0px'
+	}, 2000, 'easeInOutExpo');
+*/
+	
+	

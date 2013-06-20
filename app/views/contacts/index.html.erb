@@ -1,5 +1,5 @@
 <div class="whiteBg"></div>
-<%= form_tag(search_contacts_path, remote: false, class: "search-contacts clearfix", id: "search_form") do |f| %>
+<%= form_tag(search_contacts_path, remote: true, class: "search-contacts clearfix", id: "search_form") do |f| %>
   <div class="input-custom">
     <div class="inner">
 	  <%= text_field_tag :search, nil, placeholder: "Search for contacts" %>
@@ -9,16 +9,16 @@
   <button type="submit" class="btnCustom" form="search_form"> GO <i class="icon-double-angle-right"></i></button>
 <% end %>
 
-<% if @contacts.blank? %>
-	<p class="search-text">
+
+<p class="search-text" id="blank_contacts" style="display:<%= @contacts.blank? ? '' : 'none'%>">
   	Search for your contacts<br>by typing on the search box above
-	</p>
-<% else %>
-  <div class="rowo large">
-	 <ul class="wrap clearfix">
+</p>
+
+<div class="rowo large" style="display: <%= @contacts.blank? ? 'none' : "" %>">
+  <ul class="wrap clearfix" id="contact_list">
 		<%= render partial: 'contact', collection: @contacts %>	
-	</ul>
-  </div>
-<% end %>
+ </ul>
+</div>
+
 
 <%= render partial: "nav_bar" %>

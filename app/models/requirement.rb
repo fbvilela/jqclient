@@ -4,15 +4,26 @@ class Requirement < ActiveResource::Base
 	self.element_name = 'requirement'
   self.format = :json
 
+  @@token = nil
   def self.token=(token)
     self.headers['authorization'] = 'Bearer ' + token
+    @@token = token 
   end 	
-  def self.suburbs_serviced(token=nil)
+  
+  def token
+    @@token
+  end
+  
+  def self.token
+    @@token
+  end
+  
+  def self.suburbs_serviced
     conn = Faraday.new(:url => Rails.configuration.idashboard_url) 
       
     response = conn.get do |req|
       req.url '/api/suburbs_serviced'
-      req.headers['authorization'] = "Bearer #{token}"
+      req.headers['authorization'] = "Bearer #{token}" if token
     end
     
     json = JSON.parse(response.body)

@@ -9,32 +9,40 @@ $(window).load(function() {
   		slidesPerSlide: 1,
   		loop: false,
 			simulateTouch: true,
-			onSlideClick: function(){
-				$('#'+current_id).swiper().swipeNext();
-			},
 			onSlideChangeEnd: function(){
-				$('.swiper-container').each(function(){
-					if( $(this).attr('id') != current_id )
-					{
-						$(this).swiper().swipeTo(0);
-					}
-				});
+				if( $('.swiper-container.open').length > 0 ) 
+				{ 
+					$('.swiper-container.open').swiper().swipeTo(0);
+					$('.swiper-container.open').removeClass("open");
+				}
+				if( mySwiper.activeSlide == 0 )
+				{
+					$('#'+current_id).removeClass("open");
+					$('#'+current_id).addClass("closed");
+				}
+				else
+				{
+					$('#'+current_id).removeClass("closed");
+					$('#'+current_id).addClass("open");
+				}				
 			}
   	});	
 	});
 	
   $('.swiper-container').click(function() {
+   	if( $('.swiper-container.open').length > 0 ) 
+		{ 
+			$('.swiper-container.open').swiper().swipeTo(0);
+			$('.swiper-container.open').removeClass("open");
+		}
+   $(this).removeClass("closed");
+	 $(this).addClass("open");
    $(this).swiper().swipeTo(1);
-   currentSwiper = $(this).attr('id');
-   $('.swiper-container').each(function() {
-    if ($(this).attr('id') != currentSwiper) $(this).swiper().swipeTo(0);
-   })
+	 //currentSwiper = $(this).attr('id');
+   
+	 
   });
- 
-	
-	
-	
-	
+		
 });
 
 
@@ -42,3 +50,12 @@ function slide_next(id){
 	$('#'+id).swiper().swipeNext();	
 }
 
+
+$(function(){
+/** this was an attempt to animate the rows.*/ 	
+/**	$('.rowo').css('margin-top', '1024px');
+	$('.rowo').delay(200).animate({
+			marginTop: '0px'
+		}, 2000, 'easeInOutExpo');
+*/
+});

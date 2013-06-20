@@ -7,21 +7,30 @@ class Contact < ActiveResource::Base
   self.element_name = 'contact'
   self.collection_name = 'contacts'
   #self.format = :json
-  
+  @@token = nil
   attr_accessor :contact_attribute_ids
   attr_accessor :phone_numbers_attributes
   
-  def self.token=(token)
-  	self.headers['authorization'] = 'Bearer ' + token unless token.blank? 
+  def self.token=(arg)
+  	self.headers['authorization'] = "Bearer #{token}" unless arg.blank? 
+    @@token = arg 
   end
   
-  def self.categories(token=nil)
+  def self.token 
+    @@token
+  end
+  
+  def token
+    @@token
+  end
+  
+  def self.categories
     
     conn = Faraday.new(:url => Rails.configuration.idashboard_url) 
       
     response = conn.get do |req|
       req.url '/api/contact_categories'
-      req.headers['authorization'] = "Bearer #{token}"
+      req.headers['authorization'] = "Bearer #{token}" if token
     end
     
     json = JSON.parse(response.body)
@@ -32,7 +41,7 @@ class Contact < ActiveResource::Base
     end
   end
   
-  def add_note(text,author, token=nil)
+  def add_note(text,author)
     params = { :contact => { :notes_attributes => [ {:note_body => text, :date_added => Time.now, :author => author} ]
       }
     }
@@ -69,11 +78,15 @@ class Contact < ActiveResource::Base
     conn = Faraday.new(:url => Rails.configuration.idashboard_url)
     response = conn.get do |req|
       req.url "/api/search_contacts"
-      #req.headers['authorization'] = "Bearer #{token}" if 
+      req.headers['authorization'] = "Bearer #{token}" if token
       req.params = {search: arg, per_page: "50"}
     end    
-    JSON.parse( response.body )['results']['contacts'].collect do |element|
-      find( element['contact']['id'])
+    if response.status == 200
+      JSON.parse( response.body )['results']['contacts'].collect do |element|
+        find( element['contact']['id'])
+      end
+    else
+      []
     end
   end
   
@@ -82,17 +95,13 @@ class Contact < ActiveResource::Base
   end
   
   def faraday_update()
-    
     conn = Faraday.new(:url => Rails.configuration.idashboard_url)   
     response = conn.put do |req|
       req.url "/api/contacts/#{self.id}"
-      #req.headers['authorization'] = "Bearer #{token}" if 
+      req.headers['authorization'] = "Bearer #{token}" if token
       req.params = self.to_my_params
     end
-    puts response.inspect
-
     response.status == 200
-    
   end
     
 end

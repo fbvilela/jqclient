@@ -7,14 +7,14 @@
       </div>
     </li>
   </a>
-  <a href="/contacts/landlords" onclick="load_page_ajax('/contacts/landlords');">
+	<%= link_to contacts_landlords_path , remote: false do %>
     <li class="<%= @page_name == 'Landlords' ? 'active' : '' %>">
       <div class="inner">
         <i class="icon-home"></i>
         <p>Landlords</p>
       </div>
     </li>
-  </a>
+	<%end%>
   <a href="/contacts">
     <li class="<%= @page_name == 'Contacts' ? 'active' : '' %>">
       <div class="inner">

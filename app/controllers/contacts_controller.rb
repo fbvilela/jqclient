@@ -1,9 +1,10 @@
 class ContactsController < ApplicationController
   
-  before_filter :set_token, only: [:create,:update]
+  before_filter :set_token, only: [:create,:update, :vendors, :landlords, :search, :add_note]
   before_filter :load_contact, only: [:edit,:update, :add_note]
   
   def set_token
+    Employee.token = session[:access_token]
   	Contact.token = session[:access_token]
     Requirement.token = session[:access_token]
   end
@@ -15,6 +16,7 @@ class ContactsController < ApplicationController
   def add_note
     if params['note'] && @contact.add_note(params['note'], current_user.name)
       flash[:notice] = "Note added!" 
+      redirect_to page_path("menu")
     else
       render
     end
@@ -22,14 +24,13 @@ class ContactsController < ApplicationController
   
   def search
     @contacts = Contact.search(params[:search])
-    render 'index'
+    respond_to do |format|
+      format.html{ render 'index' }
+      format.js      
+    end
   end
   
-  
   def index
-  	Contact.token = session[:access_token]
-    temps = Contact.find(:all) # /api/contacts
-    @contacts = temps.collect{ |t| Contact.find(t.id) } # /api/contacts/:id/
     @page_name = "Contacts"
   end
   
@@ -71,13 +72,16 @@ class ContactsController < ApplicationController
   def landlords
     @page_name = "Landlords"
     @vendors_landlords = current_user.landlords
-    render "vendors_landlords"
+    respond_to do |format|
+      format.html{  render "vendors_landlords" }
+      format.js{
+        render "vendors_landlords"
+      }
+    end
   end
 
   def create 
-  	
-    
-    params['contact']['contact_attribute_ids'] = [params['contact']['contact_attribute_ids']]
+  	params['contact']['contact_attribute_ids'] = [params['contact']['contact_attribute_ids']]
     note = params["note"]
     contact = Contact.new( params['contact'] )
   	if contact.save
