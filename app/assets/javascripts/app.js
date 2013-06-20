@@ -1,6 +1,4 @@
-$(window).load(function() {
-  $('body').fadeIn(1200);
-  
+function initialize_swipers(){
 	$('.swiper-container').each(function(){
   		var current_id = $(this).attr('id');
       var mySwiper = new Swiper(this,{
@@ -38,11 +36,15 @@ $(window).load(function() {
    $(this).removeClass("closed");
 	 $(this).addClass("open");
    $(this).swiper().swipeTo(1);
-	 //currentSwiper = $(this).attr('id');
-   
-	 
   });
-		
+	
+	
+}//function 
+
+
+$(window).load(function() {
+  $('body').fadeIn(1200);	
+	initialize_swipers();	
 });
 
 
@@ -58,4 +60,9 @@ $(function(){
 			marginTop: '0px'
 		}, 2000, 'easeInOutExpo');
 */
+	
+	$('a[data-remote=true]').bind('ajax:beforeSend', function(){
+	  $('#show_loading').show();
+	});
+	
 });

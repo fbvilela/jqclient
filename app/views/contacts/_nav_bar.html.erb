@@ -1,20 +1,22 @@
 <ul class="navBar">
-  <a href="/contacts/vendors" onclick="load_page_ajax('/contacts/vendors');">
+	<%= link_to contacts_vendors_path, remote: true do %>
     <li class="<%= @page_name == 'Vendors' ? 'active' : '' %>">
       <div class="inner">
         <i class="icon-user"></i>
         <p>Vendors</p>
       </div>
     </li>
-  </a>
-	<%= link_to contacts_landlords_path , remote: false do %>
+	<% end %>
+	
+	<%= link_to contacts_landlords_path , remote: true,  do %>
     <li class="<%= @page_name == 'Landlords' ? 'active' : '' %>">
       <div class="inner">
         <i class="icon-home"></i>
         <p>Landlords</p>
       </div>
     </li>
-	<%end%>
+	<% end %>
+	
   <a href="/contacts">
     <li class="<%= @page_name == 'Contacts' ? 'active' : '' %>">
       <div class="inner">
@@ -32,14 +34,3 @@
     </li>
   </a>
 </ul>
-
-<script type="text/javascript">
-
-	function load_page_ajax(load_url){	
-		jQuery.ajax({
-			url: load_url,
-			type: "POST" 
-		}).done( function(result){ alert('loading finished');  jQuery('#main_content').html(result); });
-	}
-	
-</script>

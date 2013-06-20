@@ -66,7 +66,10 @@ class ContactsController < ApplicationController
   def vendors
     @page_name = "Vendors"
     @vendors_landlords = current_user.vendors
-    render "vendors_landlords"
+    respond_to do |format|
+      format.html{ render "vendors_landlords" }
+      format.js
+    end
   end
   
   def landlords
@@ -74,9 +77,7 @@ class ContactsController < ApplicationController
     @vendors_landlords = current_user.landlords
     respond_to do |format|
       format.html{  render "vendors_landlords" }
-      format.js{
-        render "vendors_landlords"
-      }
+      format.js
     end
   end
 

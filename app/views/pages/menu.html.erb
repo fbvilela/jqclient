@@ -1,24 +1,24 @@
 <%= render partial: "shared/flash_messages"%>
   <div class="homepage">
     <div class="homepage-btn">
-      <a href="/contacts/vendors">
+      <%= link_to contacts_vendors_path , remote: true,  do %>
         <div class="inner">
           <div class="wrap">
             <i class="icon-user"></i>
             <p>My Vendors</p>
           </div>
         </div>
-      </a>
+			<% end %>
     </div><!-- homepage btn -->
     <div class="homepage-btn">
-      <a href="/contacts/landlords">
+      <%= link_to contacts_landlords_path , remote: true,  do %>
         <div class="inner">
           <div class="wrap">
             <i class="icon-home"></i>
             <p>My Landlords</p>
           </div>
         </div>
-      </a>
+			<%end%>
     </div><!-- homepage btn -->
     <div class="homepage-btn">
       <a href="/contacts">
