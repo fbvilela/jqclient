@@ -1,14 +1,1 @@
-<div class="whiteBg"></div>
-
-<div class="pageTitle">
-  <h1><%= pluralize( @vendors_landlords.count, @page_name) %></h1>
-</div> 
-
-<div class="rowo large">
-  <ul class="wrap clearfix">
-		<%= render partial: 'vendors_landlords_item', collection: @vendors_landlords, as: :item %>	
-	</ul>
-</div>
-
-
-<%= render partial: "nav_bar" %>
+<%= render partial: "vendors_landlords" %>
