@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 	if res.code == '200'
 		token = JSON.parse(res.body)['access_token']
 		session[:access_token] = token
-		puts "my token is #{token}"
+		set_object_tokens
     record_login
     redirect_to page_path("menu")
 	else
@@ -20,6 +20,12 @@ class UsersController < ApplicationController
     redirect_to "/"
 	end
 	
+  end
+  
+  def set_object_tokens
+    Employee.token = session[:access_token]
+  	Contact.token = session[:access_token]
+    Requirement.token = session[:access_token]
   end
 
   def sign_out

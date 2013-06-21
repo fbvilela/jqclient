@@ -6,7 +6,7 @@ class Requirement < ActiveResource::Base
 
   @@token = nil
   def self.token=(token)
-    self.headers['authorization'] = 'Bearer ' + token
+    self.headers['authorization'] = "Bearer #{token}"
     @@token = token 
   end 	
   

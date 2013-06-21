@@ -12,10 +12,10 @@ task :production do
   ssh_options[:user] = "ec2-user"
   ssh_options[:keys] = [File.join("~/.ssh/iproperty-sydney-ec2.pem")]
     
-  role :web, "ec2-54-252-64-51.ap-southeast-2.compute.amazonaws.com"                          # Your HTTP server, Apache/etc
-  role :app, "ec2-54-252-64-51.ap-southeast-2.compute.amazonaws.com"                          # This may be the same as your `Web` server
-  role :db,  "ec2-54-252-64-51.ap-southeast-2.compute.amazonaws.com", :primary => true # This is where Rails migrations will run
-  role :db,  "ec2-54-252-64-51.ap-southeast-2.compute.amazonaws.com"
+  role :web, "ec2-54-253-121-168.ap-southeast-2.compute.amazonaws.com"                          # Your HTTP server, Apache/etc
+  role :app, "ec2-54-253-121-168.ap-southeast-2.compute.amazonaws.com"                          # This may be the same as your `Web` server
+  role :db,  "ec2-54-253-121-168.ap-southeast-2.compute.amazonaws.com", :primary => true # This is where Rails migrations will run
+  role :db,  "ec2-54-253-121-168.ap-southeast-2.compute.amazonaws.com"
 
   #after 'deploy:finalize_update', 'deploy:restart_passenger'
   #after "deploy:finalize_update", "newrelic:notice_deployment"

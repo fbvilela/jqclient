@@ -1,7 +1,7 @@
 class Contact < ActiveResource::Base
   #include HTTParty
   #base_uri Rails.configuration.idashboard_url + '/api'
-  
+  UNAUTHORIZED = "Unauthorized"
   self.site = Rails.configuration.idashboard_url
   self.prefix = "/api/"
   self.element_name = 'contact'
@@ -12,7 +12,7 @@ class Contact < ActiveResource::Base
   attr_accessor :phone_numbers_attributes
   
   def self.token=(arg)
-  	self.headers['authorization'] = "Bearer #{token}" unless arg.blank? 
+  	self.headers['authorization'] = "Bearer #{token}"
     @@token = arg 
   end
   
@@ -86,7 +86,7 @@ class Contact < ActiveResource::Base
         find( element['contact']['id'])
       end
     else
-      []
+      raise UNAUTHORIZED
     end
   end
   
@@ -101,7 +101,7 @@ class Contact < ActiveResource::Base
       req.headers['authorization'] = "Bearer #{token}" if token
       req.params = self.to_my_params
     end
-    response.status == 200
+    response.status == 200 ? true : (raise UNAUTHORIZED)
   end
     
 end

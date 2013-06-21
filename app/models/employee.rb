@@ -6,7 +6,7 @@ class Employee < ActiveResource::Base
   self.format = :json
 
   def self.token=(token)
-    self.headers['authorization'] = 'Bearer ' + token
+    self.headers['authorization'] = "Bearer #{token}"
   end
   
   def self.me
@@ -33,4 +33,13 @@ class Employee < ActiveResource::Base
      end   
   end
   
+end
+
+
+class ActiveResource::Base
+def self.instantiate_collection(collection, prefix_options = {})
+          puts "instantiate collection from my patch..."
+          collection = collection["employees"]      
+          collection.collect! { |record| instantiate_record(record, prefix_options) }
+ end
 end

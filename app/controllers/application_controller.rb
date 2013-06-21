@@ -1,17 +1,37 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :check_auth
+
   before_filter :receive_token
+  
+  def require_premium
+    unless session[:access_token].blank? 
+      redirect_to page_path("premium") unless ( current_user.is_premium == "true" rescue false) 
+    end
+  end
+  
+  def render_login 
+    respond_to do |format|
+      format.html{ redirect_to page_path("index")}
+      format.js{ render js: %(window.location.href='/pages/index') and return }
+    end
+  end
   
   def receive_token
     unless params[:token].blank? 
+      puts "setting the token to #{params[:token]}"
       session[:access_token] = params[:token]
     end  
   end
 
   def check_auth
-    #redirect_to page_path('index') unless session[:access_token]
+    if request.xhr? 
+      if session[:access_token].blank?
+       render js: %(window.location.href='/pages/index') and return
+     end
+    else
+      redirect_to page_path('index') if session[:access_token].blank?
+    end  
   end
 
   def oauth_client
