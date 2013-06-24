@@ -12,4 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery-ui
+//= require bootstrap.min
+//= require less
+//= require idangerous.swiper-1.9.1.min
+//= require jquery.easing-1.3
+//= require app
+//= require contacts
+

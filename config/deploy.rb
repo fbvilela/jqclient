@@ -1,4 +1,5 @@
 #require 'new_relic/recipes'
+load 'deploy/assets'
 set :application, "jqclient"
 set :repository,  "git@github.com:fbvilela/jqclient.git"
 
@@ -16,8 +17,10 @@ task :production do
   role :app, "ec2-54-253-121-168.ap-southeast-2.compute.amazonaws.com"                          # This may be the same as your `Web` server
   role :db,  "ec2-54-253-121-168.ap-southeast-2.compute.amazonaws.com", :primary => true # This is where Rails migrations will run
   role :db,  "ec2-54-253-121-168.ap-southeast-2.compute.amazonaws.com"
-
-  #after 'deploy:finalize_update', 'deploy:restart_passenger'
+  
+  after 'deploy:finalize_update', 'deploy:bundle_install'
+  after 'deploy:finalize_update', 'deploy:compile_assets'
+  after 'deploy:finalize_update', 'deploy:restart'
   #after "deploy:finalize_update", "newrelic:notice_deployment"
 end
 
@@ -34,11 +37,15 @@ end
    task :start do ; end
    task :stop do ; end
    task :restart, :roles => :app, :except => { :no_release => true } do
-     #run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+     run "touch #{File.join(current_path,'tmp','restart.txt')}"
    end
    
-   task :restart_passenger do
-    # run "touch #{current_path}/tmp/restart.txt"
+   task :bundle_install do 
+#     run "cd #{current_path} && bundle"
+   end
+   
+   task :compile_assets do
+     #run "cd #{current_path} && bundle exec rake assets:precompile"
    end
    
  end
