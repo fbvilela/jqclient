@@ -1,5 +1,5 @@
 #require 'new_relic/recipes'
-load 'deploy/assets'
+#load 'deploy/assets'
 set :application, "jqclient"
 set :repository,  "git@github.com:fbvilela/jqclient.git"
 
