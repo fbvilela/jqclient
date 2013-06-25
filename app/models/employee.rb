@@ -26,11 +26,11 @@ class Employee < ActiveResource::Base
   
   def to_vendor_landlor_array( object_array )
      object_array.collect do |object|
-       vendor_landlord = FunkyStruct.new( listing: nil, contact: nil )
+       vendor_landlord = OpenStruct.new( listing: nil, contact: nil )
        vendor_landlord.contact = object['listing'].delete('contact')
        vendor_landlord.listing = object['listing']
        vendor_landlord       
-     end   
+     end.sort_by{ |i| i.contact['name']}   
   end
   
 end
