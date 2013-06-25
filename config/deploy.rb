@@ -1,5 +1,6 @@
 #require 'new_relic/recipes'
-#load 'deploy/assets'
+require 'rvm/capistrano'
+load 'deploy/assets'
 set :application, "jqclient"
 set :repository,  "git@github.com:fbvilela/jqclient.git"
 
@@ -7,7 +8,7 @@ set :scm, :git
 set :user, "ec2-user"
 
 task :production do 
-  
+  set :rvm_ruby_string, '1.9.2@jqclient'
   default_run_options[:pty] = true
   set :rails_env, "production"
   ssh_options[:user] = "ec2-user"
@@ -41,11 +42,7 @@ end
    end
    
    task :bundle_install do 
-#     run "cd #{current_path} && bundle"
+    #run "cd #{current_path} && bundle"
    end
-   
-   task :compile_assets do
-     #run "cd #{current_path} && bundle exec rake assets:precompile"
-   end
-   
+     
  end

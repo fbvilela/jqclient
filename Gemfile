@@ -31,6 +31,7 @@ group :development do
  gem 'ruby-debug19', :require => 'ruby-debug'
  gem 'sqlite3'
  gem 'capistrano'
+ gem 'rvm-capistrano'
 end
 
 group :staging do 
