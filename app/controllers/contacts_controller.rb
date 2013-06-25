@@ -75,8 +75,8 @@ class ContactsController < ApplicationController
   
   def vendors
     @page_name = "Vendors"
-    @vendors_landlords = Rails.cache.read("#{session[:access_token]}_vendors") || current_user.vendors
-    Rails.cache.write("#{session[:access_token]}_vendors", @vendors_landlords, :time_to_idle => 60.seconds, :timeToLive => 300.seconds) if Rails.cache.read("#{session[:access_token]}_vendors").blank? 
+    @vendors_landlords = Rails.cache.read("#{current_user.name}_vendors") || current_user.vendors
+    Rails.cache.write("#{current_user.name}_vendors", @vendors_landlords, :time_to_idle => 60.seconds, :timeToLive => 300.seconds) if Rails.cache.read("#{current_user.name}_vendors").blank? 
     respond_to do |format|
       format.html{ render "vendors_landlords" }
       format.js
@@ -85,8 +85,8 @@ class ContactsController < ApplicationController
   
   def landlords
     @page_name = "Landlords"
-    @vendors_landlords = Rails.cache.read("#{session[:access_token]}_landlords") || current_user.landlords
-    Rails.cache.write("#{session[:access_token]}_landlords", @vendors_landlords, :time_to_idle => 60.seconds, :timeToLive => 300.seconds) if Rails.cache.read("#{session[:access_token]}_landlords").blank? 
+    @vendors_landlords = Rails.cache.read("#{current_user.name}_landlords") || current_user.landlords
+    Rails.cache.write("#{current_user.name}_landlords", @vendors_landlords, :time_to_idle => 60.seconds, :timeToLive => 300.seconds) if Rails.cache.read("#{current_user.name}_landlords").blank? 
     respond_to do |format|
       format.html{  render "vendors_landlords" }
       format.js
