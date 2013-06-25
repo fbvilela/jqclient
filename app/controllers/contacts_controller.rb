@@ -5,6 +5,11 @@ class ContactsController < ApplicationController
   before_filter :check_auth, except: [:token]
   before_filter :require_premium, only: [:new, :edit, :add_note]
   
+  
+  #caches_action :landlords, :expires_in => 60.seconds, :unless_exist => true
+  #caches_action :vendors, :expires_in => 60.seconds, :unless_exist => true
+  
+  
   def set_token
     Employee.token = session[:access_token]
   	Contact.token = session[:access_token]
@@ -70,7 +75,8 @@ class ContactsController < ApplicationController
   
   def vendors
     @page_name = "Vendors"
-    @vendors_landlords = current_user.vendors
+    @vendors_landlords = Rails.cache.read("#{session[:access_token]}_vendors") || current_user.vendors
+    Rails.cache.write("#{session[:access_token]}_vendors", @vendors_landlords, :time_to_idle => 60.seconds, :timeToLive => 300.seconds) if Rails.cache.read("#{session[:access_token]}_vendors").blank? 
     respond_to do |format|
       format.html{ render "vendors_landlords" }
       format.js
@@ -79,7 +85,8 @@ class ContactsController < ApplicationController
   
   def landlords
     @page_name = "Landlords"
-    @vendors_landlords = current_user.landlords
+    @vendors_landlords = Rails.cache.read("#{session[:access_token]}_landlords") || current_user.landlords
+    Rails.cache.write("#{session[:access_token]}_landlords", @vendors_landlords, :time_to_idle => 60.seconds, :timeToLive => 300.seconds) if Rails.cache.read("#{session[:access_token]}_landlords").blank? 
     respond_to do |format|
       format.html{  render "vendors_landlords" }
       format.js
