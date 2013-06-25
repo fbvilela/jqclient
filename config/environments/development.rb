@@ -40,7 +40,8 @@ Jqclient::Application.configure do
   config.assets.debug = true
 
   # api connection related 
-  config.idashboard_url = "http://megatron.idashboard.com.au"
-  config.app_key = "XrQ0mn5VHlbk5fhPuYUVyavBEqjsgD1of6DlhlM0"
-  config.app_secret = "qKKcy9hPFyBu2KCsgTJOxWt5W7vFoTpCV83L7wPF"
+  config.idashboard_url = "http://ec2-54-252-30-110.ap-southeast-2.compute.amazonaws.com"
+  config.app_key = "lyexzv19zd79eiyXZmdRdj4YIzDTheGR14Ph8oUw"
+  config.app_secret = "RiMwAXwOqTijrltk8uC0N4G5Vz3rmQVoJbijIIcW"
+ 
 end
