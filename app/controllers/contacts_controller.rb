@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
   before_filter :load_contact, only: [:edit,:update, :add_note]
   before_filter :check_auth
   before_filter :require_premium, only: [:new, :edit, :add_note]
- # rescue_from Exception, :with => :render_login
+  rescue_from Exception, :with => :render_login
   
   def set_token
     Employee.token = session[:access_token]

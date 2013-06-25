@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
 
-  before_filter :receive_token
+  #before_filter :receive_token
   
   def require_premium
     unless session[:access_token].blank? 
@@ -17,10 +17,11 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def receive_token
+  def token
     unless params[:token].blank? 
       puts "setting the token to #{params[:token]}"
       session[:access_token] = params[:token]
+      redirect_to page_path("menu")
     end  
   end
 
