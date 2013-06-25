@@ -20,7 +20,7 @@ task :production do
   role :db,  "ec2-54-253-121-168.ap-southeast-2.compute.amazonaws.com"
   
   after 'deploy:finalize_update', 'deploy:bundle_install'
-  after 'deploy:finalize_update', 'deploy:compile_assets'
+#  after 'deploy:finalize_update', 'deploy:compile_assets'
   after 'deploy:finalize_update', 'deploy:restart'
   #after "deploy:finalize_update", "newrelic:notice_deployment"
 end
@@ -42,7 +42,7 @@ end
    end
    
    task :bundle_install do 
-    #run "cd #{current_path} && bundle"
+    run "cd #{release_path} && bundle"
    end
      
  end

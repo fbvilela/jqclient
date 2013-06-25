@@ -1,9 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-
-  
-  
   rescue_from Exception do |exception| 
     Rails.logger.error "Exception #{exception.class}: #{exception.message}"
     puts exception.message
@@ -27,6 +24,9 @@ class ApplicationController < ActionController::Base
     unless params[:token].blank? 
       puts "setting the token to #{params[:token]}"
       session[:access_token] = params[:token]
+      Employee.token = session[:access_token]
+    	Contact.token = session[:access_token]
+      Requirement.token = session[:access_token]
       redirect_to page_path("menu")
     end  
   end
