@@ -2,10 +2,23 @@
 <div class="whiteBg"></div>
 <div class="pageTitle">
   <h1><%= pluralize( @vendors_landlords.count, @page_name) %></h1>
-</div> 
+</div>
+<form class="alt">
+<div class="input-custom">
+  <div class="inner">
+  <input placeholder="type to filter" id="filter_contacts" />
+  </div>
+  <span class="icon-search"></span>
+</div>
+</form>
 <div class="rowo large">
-  <ul class="wrap clearfix">
+  <ul class="wrap clearfix" id="contact_ul">
 		<%= render partial: 'vendors_landlords_item', collection: @vendors_landlords, as: :item %>	
 	</ul>
 </div>
 <%= render partial: "nav_bar" %>
+
+
+<script type="text/javascript">
+$('#filter_contacts').fastLiveFilter('#contact_ul');
+</script>

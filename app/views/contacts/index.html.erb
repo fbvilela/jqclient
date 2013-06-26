@@ -14,7 +14,7 @@
   	Search for your contacts<br>by typing on the search box above
 </p>
 
-<div class="rowo large" style="display: <%= @contacts.blank? ? 'none' : "" %>">
+<div class="rowo small" style="display: <%= @contacts.blank? ? 'none' : "" %>">
   <ul class="wrap clearfix" id="contact_list">
 		<%= render partial: 'contact', collection: @contacts %>	
  </ul>

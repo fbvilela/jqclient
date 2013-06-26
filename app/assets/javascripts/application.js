@@ -19,4 +19,5 @@
 //= require jquery.easing-1.3
 //= require app
 //= require contacts
+//= require fastlivefilter
 
