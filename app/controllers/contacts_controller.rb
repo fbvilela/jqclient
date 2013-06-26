@@ -6,8 +6,8 @@ class ContactsController < ApplicationController
   before_filter :require_premium, only: [:new, :edit, :add_note]
   
   
-  #caches_action :landlords, :expires_in => 60.seconds, :unless_exist => true
-  #caches_action :vendors, :expires_in => 60.seconds, :unless_exist => true
+  caches_action :landlords, :expires_in => 300.seconds, :unless_exist => true
+  caches_action :vendors, :expires_in => 300.seconds, :unless_exist => true
   
   
   def set_token
@@ -75,8 +75,7 @@ class ContactsController < ApplicationController
   
   def vendors
     @page_name = "Vendors"
-    @vendors_landlords = Rails.cache.read("#{current_user.name}_vendors") || current_user.vendors
-    Rails.cache.write("#{current_user.name}_vendors", @vendors_landlords, :time_to_idle => 60.seconds, :timeToLive => 300.seconds) if Rails.cache.read("#{current_user.name}_vendors").blank? 
+    @vendors_landlords = current_user.vendors
     respond_to do |format|
       format.html{ render "vendors_landlords" }
       format.js
@@ -85,10 +84,9 @@ class ContactsController < ApplicationController
   
   def landlords
     @page_name = "Landlords"
-    @vendors_landlords = Rails.cache.read("#{current_user.name}_landlords") || current_user.landlords
-    Rails.cache.write("#{current_user.name}_landlords", @vendors_landlords, :time_to_idle => 60.seconds, :timeToLive => 300.seconds) if Rails.cache.read("#{current_user.name}_landlords").blank? 
+    @vendors_landlords = current_user.landlords
     respond_to do |format|
-      format.html{  render "vendors_landlords" }
+      format.html{ render "vendors_landlords" }
       format.js
     end
   end
