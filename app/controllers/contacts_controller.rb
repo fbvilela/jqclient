@@ -6,8 +6,8 @@ class ContactsController < ApplicationController
   before_filter :require_premium, only: [:new, :edit, :add_note]
   
   
-  caches_action :landlords, :expires_in => 300.seconds, :unless_exist => true
-  caches_action :vendors, :expires_in => 300.seconds, :unless_exist => true
+  #caches_action :landlords, :expires_in => 300.seconds, :unless_exist => true
+  #caches_action :vendors, :expires_in => 300.seconds, :unless_exist => true
   
   
   def set_token
