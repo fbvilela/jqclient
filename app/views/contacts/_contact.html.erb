@@ -4,7 +4,7 @@
   
 	    <!--First Slide-->
 	    <div class="swiper-slide slide1" id="slide1_<%= contact.id%>">
-	      <h1><%= contact.name %></h1>
+	      <h1><%= [contact.name,contact.company_name].reject(&:blank?).first %></h1>
 	      <h2><i class="icon-phone"></i> <%= (!contact.mobile.strip.blank? rescue nil) ? contact.mobile : "Unknown" %></h2>
 				<span class="icon-angle-right" onClick="slide_next('swiper_<%= contact.id %>');"></span>
 	    </div>

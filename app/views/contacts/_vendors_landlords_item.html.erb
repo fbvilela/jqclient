@@ -4,7 +4,7 @@
   
 	    <!--First Slide-->
 	    <div class="swiper-slide slide1" id="slide1_<%= item.contact['id']%>">
-	      <h1><%= item.contact["name"] %></h1>
+	      <h1><%= [item.contact["name"],item.contact["company_name"]].reject{|x| x.try(:strip).blank?}.first %></h1>
 	      <h2><i class="icon-home"></i> <%= item.listing["address"] %></h2>
 	      <h2><i class="icon-phone"></i> <%= !item.contact["mobile"].strip.blank? ? item.contact["mobile"] : "Unknown" %></h2>
 				<span class="icon-angle-right" onClick="slide_next('swiper_<%= item.contact['id']%>');"></span>

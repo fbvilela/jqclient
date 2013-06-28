@@ -69,7 +69,7 @@ class Contact < ActiveResource::Base
       :contact => 
       {
         first_name: self.first_name, last_name: self.last_name, contact_attribute_ids: self.contact_attribute_ids, email: self.email,
-        :phone_numbers_attributes => { self.phone_numbers_attributes.delete("id").to_sym  =>  self.phone_numbers_attributes }
+        :phone_numbers_attributes => { (self.phone_numbers_attributes.delete("id") || "_new").to_sym  =>  self.phone_numbers_attributes }
        } 
     }
   end
