@@ -6,8 +6,8 @@ class ContactsController < ApplicationController
   before_filter :require_premium, only: [:new, :edit, :add_note]
   
   
-  caches_action :landlords, :expires_in => 300.seconds, :unless_exist => true
-  caches_action :vendors, :expires_in => 300.seconds, :unless_exist => true
+  #caches_action :landlords, :expires_in => 300.seconds, :unless_exist => true
+  #caches_action :vendors, :expires_in => 300.seconds, :unless_exist => true
   
   
   def set_token
@@ -75,7 +75,10 @@ class ContactsController < ApplicationController
   
   def vendors
     @page_name = "Vendors"
-    @vendors_landlords = current_user.vendors
+    @current_user_id = current_user.id
+    @vendors_landlords = Rails.cache.fetch("#{current_user.id}_vendors", expires_in: 300.seconds) do
+      current_user.vendors
+    end
     respond_to do |format|
       format.html{ render "vendors_landlords" }
       format.js
@@ -84,6 +87,7 @@ class ContactsController < ApplicationController
   
   def landlords
     @page_name = "Landlords"
+    @current_user_id = current_user.id
     @vendors_landlords = current_user.landlords
     respond_to do |format|
       format.html{ render "vendors_landlords" }

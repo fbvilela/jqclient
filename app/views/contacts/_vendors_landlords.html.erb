@@ -1,4 +1,4 @@
-
+<% cache("#{@page_name}_#{@current_user_id}", expires_in: 300.seconds) do %>
 <div class="whiteBg"></div>
 <div class="pageTitle">
   <h1><%= pluralize( @vendors_landlords.count, @page_name) %></h1>
@@ -21,4 +21,7 @@
 
 <script type="text/javascript">
 $('#filter_contacts').fastLiveFilter('#contact_ul');
+initialize_swipers();
 </script>
+
+<% end %>

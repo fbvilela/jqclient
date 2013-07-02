@@ -1,6 +1,5 @@
 $('#main_div').html('<%= j render partial: "vendors_landlords"%>');
 $('#show_loading').hide();
-initialize_swipers();
 $('a[data-remote=true]').bind('ajax:beforeSend', function(){
   $('#show_loading').show();
 });
