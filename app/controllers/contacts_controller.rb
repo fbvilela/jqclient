@@ -88,7 +88,9 @@ class ContactsController < ApplicationController
   def landlords
     @page_name = "Landlords"
     @current_user_id = current_user.id
-    @vendors_landlords = current_user.landlords
+    @vendors_landlords =  Rails.cache.fetch("#{current_user.id}_landlords", expires_in: 300.seconds ) do
+      current_user.landlords
+    end
     respond_to do |format|
       format.html{ render "vendors_landlords" }
       format.js
@@ -99,7 +101,7 @@ class ContactsController < ApplicationController
   	params['contact']['contact_attribute_ids'] = [params['contact']['contact_attribute_ids']]
     note = params["note"]
     contact = Contact.new( params['contact'] )
-  	if contact.save
+  	if (contact.save rescue false)
       unless note.blank? 
         contact.add_note(note, current_user.name)
       end
@@ -114,7 +116,7 @@ class ContactsController < ApplicationController
       flash.keep
   	  redirect_to page_path("menu")
     else
-      flash[:notice] = "Booo, contact was not created :("
+      flash[:notice] = "Notice: Last name is required."
       redirect_to "/contacts/new"
     end
   end

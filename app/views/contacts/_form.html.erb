@@ -1,8 +1,8 @@
 <div class="whiteBg"></div>
 <div class="pageTitle">
-  <h1><i class="icon-chevron-left back-button" onclick="window.history.back();"></i> <%= @contact.name rescue nil || "New contact" %></h1>
+  <a href="/pages/menu"><h1><i class="icon-chevron-left back-button"></i> <%= @contact.name rescue nil || "New contact" %></h1></a>
 </div> 
-
+		<%= render partial: "shared/flash_messages"%>
   <div class="addNew">
     <%= form_for(@contact, id: "contact_form") do |form|%>
       <div class="input-custom">
@@ -14,7 +14,7 @@
 				<%= form.text_field :first_name, placeholder: "First Name" %>
       </div>
       <div class="input-custom">
-        <span class="icon-lock"></span>
+        
         <%= form.text_field :last_name, placeholder: "Last Name" %>
       </div>
       <div class="input-custom">

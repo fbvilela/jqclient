@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  
+
   def require_premium
     unless session[:access_token].blank? 
       redirect_to page_path("premium") unless ( current_user.is_premium == "true" rescue false) 
