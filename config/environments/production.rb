@@ -40,7 +40,7 @@ Jqclient::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production
-   config.cache_store = :dalli_store, 'localhost:11211'
+   config.cache_store = :memory_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -66,7 +66,7 @@ Jqclient::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # api connection related 
-  config.idashboard_url = "http://ec2-54-252-30-110.ap-southeast-2.compute.amazonaws.com"
+  config.idashboard_url = "http://www.idashboard.com.au"
   config.app_key = "lyexzv19zd79eiyXZmdRdj4YIzDTheGR14Ph8oUw"
   config.app_secret = "RiMwAXwOqTijrltk8uC0N4G5Vz3rmQVoJbijIIcW"
 end
