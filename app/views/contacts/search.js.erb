@@ -1,7 +1,7 @@
 $('#blank_contacts').hide();
 $('#contact_list').html('<%= j render(partial: 'contact', collection: @contacts)%>');
 $('#contact_list').parent().show();
-initialize_swipers();
-$('.swiper-container').each( function(){
+init_custom_swipers();
+/*$('.swiper-container').each( function(){
 	$(this).swiper().swipePrev();
-});
+});*/

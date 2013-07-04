@@ -7,12 +7,12 @@
 	      <h1><%= [item.contact["name"],item.contact["company_name"]].reject{|x| x.try(:strip).blank?}.first %></h1>
 	      <h2><i class="icon-home"></i> <%= item.listing["address"] %></h2>
 	      <h2><i class="icon-phone"></i> <%= !item.contact["mobile"].strip.blank? ? item.contact["mobile"] : "Unknown" %></h2>
-				<span class="icon-angle-right" onClick="slide_next('swiper_<%= item.contact['id']%>');"></span>
+				<span class="icon-angle-right"></span>
 	    </div>
     
 	    <!--Second Slide-->
 	    <div class="swiper-slide slide2" id="slide2_<%= item.contact['id']%>">
-    
+    		
 	      <a class="action" href="tel:<%=item.contact["mobile"]%>">
 	        <div class="inner">  
 	          <i class="icon-phone"></i>
