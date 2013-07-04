@@ -37,13 +37,19 @@ function init_custom_swipers(){
 	$('.slide1').click(function(){
 		$(this).parents('.swiper-container').find('.slide2').show(); //Just to remove the display:none
 		$(this).parents('.swiper-container').swiper({
-			onSlideChangeEnd: function(){
-				//insert the code to make them close automatically
+			onSlideChangeEnd: function(swiper){
+				console.log(swiper.container);
+				//close any open swiper
+				if( $('.swiper-container.open').length > 0 )
+				{ 
+					$('.swiper-container.open').swiper().swipeTo(0);
+					$('.swiper-container.open').removeClass("open").addClass("closed");
+				}
+				$(swiper.container).removeClass("closed").addClass("open");
 			}
 		}).swipeNext();
 	});
 }
-
 
 $(window).load(function() {
   $('body').fadeIn(1200);	
