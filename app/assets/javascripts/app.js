@@ -38,7 +38,6 @@ function init_custom_swipers(){
 		$(this).parents('.swiper-container').find('.slide2').show(); //Just to remove the display:none
 		$(this).parents('.swiper-container').swiper({
 			onSlideChangeEnd: function(swiper){
-				console.log(swiper.container);
 				//close any open swiper
 				if( $('.swiper-container.open').length > 0 )
 				{ 
