@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   rescue_from Exception do |exception| 
       Rails.logger.error "Exception #{exception.class}: #{exception.message}"
       puts exception.message
+      Airbrake.notify(exception)
       render_login
   end
 
