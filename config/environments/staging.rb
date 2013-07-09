@@ -7,8 +7,6 @@ Jqclient::Application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -38,6 +36,7 @@ Jqclient::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.eager_load = false
   # api connection related 
   config.idashboard_url = "http://www.idashboard.com.au"
   config.app_key = "lyexzv19zd79eiyXZmdRdj4YIzDTheGR14Ph8oUw"

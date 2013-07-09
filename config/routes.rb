@@ -21,7 +21,7 @@ Jqclient::Application.routes.draw do
     end
       
   end
-  match '/token'  => 'contacts#token'
+  match '/token'  => 'contacts#token', via: 'get'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

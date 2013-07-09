@@ -1,7 +1,7 @@
 <%= render partial: "shared/flash_messages"%>
   <div class="homepage">
     <div class="homepage-btn">
-      <%= link_to contacts_vendors_path , remote: true,  do %>
+      <%= link_to contacts_vendors_path , remote: true do %>
         <div class="inner">
           <div class="wrap">
             <i class="icon-user"></i>
@@ -11,7 +11,7 @@
 			<% end %>
     </div><!-- homepage btn -->
     <div class="homepage-btn">
-      <%= link_to contacts_landlords_path , remote: true,  do %>
+      <%= link_to contacts_landlords_path , remote: true do %>
         <div class="inner">
           <div class="wrap">
             <i class="icon-home"></i>
