@@ -3,7 +3,7 @@
 <div class="pageTitle">
   <h1><%= pluralize( @vendors_landlords.count, @page_name) %></h1>
 </div>
-<form class="alt">
+<form class="alt" action="#" onSubmit="$('#filter_contacts').blur();return false;">
 <div class="input-custom">
   <div class="inner">
   <input placeholder="type to filter" id="filter_contacts" />
