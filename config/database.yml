@@ -5,10 +5,13 @@ development:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: /u/apps/jqclient/shared/db/production.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: mysql
+  host: aa1jh98umjssqxu.czb4daseyrbp.ap-southeast-2.rds.amazonaws.com
+  database: ebdb
+  username: ebroot
+  password: hmas754berries
+  port: 3306
+  
 
 #Heroku will override this setting.
 staging: 
