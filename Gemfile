@@ -19,7 +19,7 @@ gem 'memcache-client'
 gem 'dalli'
 gem 'newrelic_rpm'
 gem 'airbrake'
-
+gem 'sqlite3'
 gem 'activeresource'
 gem 'protected_attributes'
 # To use ActiveModel has_secure_password
@@ -33,7 +33,6 @@ gem 'protected_attributes'
 
 
 group :development do 
-# gem 'sqlite3'
  gem 'capistrano'
  gem 'rvm-capistrano'
 end
