@@ -5,7 +5,7 @@ development:
   timeout: 5000
 
 production:
-  adapter: mysql
+  adapter: mysql2
   host: aa1jh98umjssqxu.czb4daseyrbp.ap-southeast-2.rds.amazonaws.com
   database: ebdb
   username: ebroot

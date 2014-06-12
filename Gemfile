@@ -40,3 +40,7 @@ end
 group :staging do 
  #gem 'pg'
 end
+
+group :production do 
+  gem 'mysql2'
+end
