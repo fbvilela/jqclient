@@ -39,5 +39,5 @@ group :development do
 end
 
 group :staging do 
- gem 'pg'
+ #gem 'pg'
 end
