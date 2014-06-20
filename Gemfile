@@ -22,6 +22,7 @@ gem 'airbrake'
 gem 'sqlite3'
 gem 'activeresource'
 gem 'protected_attributes'
+gem "activerecord_url_connections"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -35,6 +36,8 @@ gem 'protected_attributes'
 group :development do 
  gem 'capistrano'
  gem 'rvm-capistrano'
+ gem 'dotenv-rails'
+ gem 'pg'
 end
 
 group :staging do 
