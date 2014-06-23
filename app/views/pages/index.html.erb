@@ -1,6 +1,6 @@
 
 <div class="login">
-  <img class="logo" src="/assets/logo.png" />
+  <img class="logo" src="<%= asset_path('logo.png') %>" />
   <div class="tagline"><%= flash[:notice] || "All your contacts wherever you are." %></div>
   <div class="login-wrap">
     <%= form_tag("/users/sign_in", :id => "login_form") do %>
