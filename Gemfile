@@ -7,6 +7,7 @@ source 'https://rubygems.org'
   gem 'uglifier', '>= 1.0.3'
 
 
+gem 'multi_json', '1.7.8'
 gem 'jquery-rails'
 gem 'httparty'
 gem 'faraday'

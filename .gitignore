@@ -14,3 +14,7 @@
 /log/*.log
 /tmp
 .elasticbeanstalk/
+
+
+#Ignore packages
+/packages
