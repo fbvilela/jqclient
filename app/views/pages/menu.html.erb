@@ -1,75 +1,78 @@
-<%= render partial: "shared/flash_messages"%>
-  <div class="homepage">
-    <div class="homepage-btn">
-      <%= link_to contacts_vendors_path , remote: true do %>
-        <div class="inner">
-          <div class="wrap">
-            <i class="icon-user"></i>
-            <p>My Vendors</p>
-          </div>
-        </div>
-			<% end %>
-    </div><!-- homepage btn -->
-    <div class="homepage-btn">
-      <%= link_to contacts_landlords_path , remote: true do %>
-        <div class="inner">
-          <div class="wrap">
-            <i class="icon-home"></i>
-            <p>My Landlords</p>
-          </div>
-        </div>
-			<%end%>
-    </div><!-- homepage btn -->
-    <div class="homepage-btn">
-      <a href="/contacts">
-        <div class="inner">
-          <div class="wrap">
-            <i class="icon-group"></i>
-            <p>My Contacts</p>
-          </div>
-        </div>
-      </a>
-    </div><!-- homepage btn -->
-    <div class="homepage-btn">
-      <a href="/contacts/new">
-        <div class="inner">
-          <div class="wrap">
-            <i class="icon-plus"></i>
-            <p>Add Contact</p>
-          </div>
-        </div>
-      </a>
-    </div><!-- homepage btn -->
-  </div><!-- homepage-->
-	
-	
-	<style>
-	.alert-success {
-	  color: #ffffff !important;
-	  background-color: rgba(0,0,0,0.65);
-	  border-color: transparent;
-	  border-radius: 20px;
-	  padding: 40px 14px;
-	  text-shadow: none;
-	  position: absolute;
-	  left: 60px;
-	  z-index: 99;
-	  top: 50%;
-	  right: 60px;
-	  margin-top: -51px;
-		-webkit-transition:all 0.24s ease-in-out;
-	}
+<% render partial: "shared/flash_messages"%>
 
-	.alert-success h4 {
-	  color: #ffffff;
-	}
 
-	.alert .close {
-	  right:0px;
-	  position: relative;
-	  top: -31px;
-	  color: #ffffff;
-	  opacity: 0.25 !important;
-	  text-shadow: none;
-	}
-	</style>
+       
+    <!-- Top Navbar-->
+		<div class="navbar">
+		  <div class="navbar-inner">
+		    <div class="center sliding">iDashcontacts</div>
+		  </div>
+		</div>
+
+    <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+    <div class="pages navbar-through toolbar-through">
+      <!-- Page, data-page contains page name-->
+      <div data-page="index" class="page page-homepage no-toolbar">
+        <!-- Scrollable page content-->
+        <div class="page-content">
+          
+          <ul>
+	          <li>
+		          <%= link_to contacts_vendors_path do %>
+			          <p>
+				          <i class="i-flag i-flag-sale"></i>
+				          <br>
+				          My vendors
+			          </p>
+              <% end %>
+	          </li>
+	          <li>
+		          <%= link_to contacts_landlords_path do %>
+			          <p>
+				          <i class="i-flag i-flag-rent"></i>
+				          <br>
+				          My landlords
+			          </p>
+              <% end %>
+	          </li>
+	          <li>
+		          <a href="/contacts">
+			          <p>
+				          <i class="i-address-book"></i>
+				          <br>
+				          My contacts
+			          </p>
+		          </a>
+	          </li>
+	          <li>
+		          <a href="/contacts/new">
+			          <p>
+				          <i class="i-plus"></i>
+				          <br>
+				          Add contact
+			          </p>
+		          </a>
+	          </li>
+	          <li>
+		          <a>
+			          <p>
+				          <i class="i-home"></i>
+				          <br>
+				          My Listings
+			          </p>
+		          </a>
+	          </li>
+	          <li>
+		          <a>
+			          <p>
+				          <i class="i-sun"></i>
+				          <br>
+				          My day
+			          </p>
+		          </a>
+	          </li>
+          </ul>
+          
+        </div><!-- page content -->
+      </div><!-- page -->
+    </div><!-- pages -->

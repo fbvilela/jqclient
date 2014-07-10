@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130611022103) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "login_histories", force: true do |t|
     t.integer  "employee_id"
     t.string   "login"

@@ -21,7 +21,7 @@ gem 'dalli'
 gem 'newrelic_rpm'
 gem 'airbrake'
 gem 'sqlite3'
-gem 'activeresource'
+gem 'activeresource', git: "https://github.com/rails/activeresource.git"
 gem 'protected_attributes'
 gem "activerecord_url_connections"
 # To use ActiveModel has_secure_password
@@ -35,6 +35,7 @@ gem "activerecord_url_connections"
 
 
 group :development do 
+  gem 'debugger'
  gem 'capistrano'
  gem 'rvm-capistrano'
  gem 'dotenv-rails'

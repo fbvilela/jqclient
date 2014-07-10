@@ -1,40 +1,219 @@
-<div class="whiteBg"></div>
-<div class="pageTitle">
-  <h1><i class="icon-chevron-left back-button" onclick="window.history.back();"></i> Editing <%= @contact.name %></h1>
-</div> 
 
-  <div class="addNew">
-    <%= form_for(@contact, id: "contact_form") do |form|%>
-      <div class="input-custom">
-        <span class="icon-angle-down"></span>
-        <%= form.select(:contact_attribute_ids, options_for_select( contact_categories, (@contact.contact_attributes.first.id rescue nil) ), :html => {:name => "contact[contact_attribute_ids][]"})%>
+  <div class="view navbar-fixed">
+    <div class="page">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="center">Edit Contact</div>
+          <div class="right"><a href="#" class="link close-popup">Done</a></div>
+        </div>
       </div>
-      <div class="input-custom">
-        <span class="icon-user"></span>
-				<%= form.text_field :first_name, placeholder: "First Name" %>
-      </div>
-      <div class="input-custom">
-        <span class="icon-lock"></span>
-        <%= form.text_field :last_name, placeholder: "Last Name" %>
-      </div>
-      <div class="input-custom">
-        <span class="icon-envelope-alt"></span>
-        <%= form.text_field :email, placeholder: "Email", type: "email" %>
-      </div>
-      
-			<% unless @contact.phone_numbers.blank? %>
-			  <%= hidden_field_tag "contact[phone_numbers_attributes][id]", @contact.phone_numbers.first.id %>
-			<% end %>
-      <div class="input-custom">
-        <%= select("contact[phone_numbers_attributes]", "name" , options_for_select( [ ["Mobile", "Mobile"] , ["Home phone","Home"], ["Work Phone","Work"] ], (@contact.phone_numbers.first.name rescue nil)), :class => "phoneNumber") %>
-        <%= form.text_field "phone_numbers_attributes", placeholder: "Phone Number", class: "phoneNumber", name: "contact[phone_numbers_attributes][number]", value: ( @contact.phone_numbers.first.number rescue nil)%>
-      </div>
-      
-      <div class="input-custom">
-        <span class="icon-pencil"></span>
-        <textarea style="height:100px;" placeholder="Add a note" name="note"></textarea>
-      </div>
-      
-      <button type="submit" class="btnCustom" form="edit_contact_<%=@contact.id%>">Save <i class="icon-double-angle-right"></i></button>
-		<%end%>
-  </div><!-- addNew-->
+      <div class="page-content">
+          <div class="content-block">
+            <%= form_for( @contact, html: { class: "store-data list-block" , id: "editing_contact" } ) do |form| %>
+            	<div class="content-block-title">Contact Details</div>
+              <ul>
+              	<!-- Category
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Category</div>
+                      <div class="item-input">
+                        <%= form.select(:contact_attribute_ids, options_for_select( contact_categories, (@contact.contact_attributes.first.id rescue nil) ), :html => {:name => "contact[contact_attribute_ids][]"})%>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              	<!-- first name
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">First name</div>
+                      <div class="item-input">
+                        <%= form.text_field :first_name, placeholder: "Tap here to type", value: @contact.first_name %>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- last name
+              	============================= -->
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Last name</div>
+                      <div class="item-input">
+                        <%= form.text_field :last_name, placeholder: "Tap here to type", value: @contact.last_name %>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- email
+              	============================= -->
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Email</div>
+                      <div class="item-input">
+                        <%= form.text_field :email, placeholder: "Tap here to type", type: "email" %>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Phone Type
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Phone type</div>
+                      <div class="item-input">
+                  			<% unless @contact.phone_numbers.blank? %>
+                  			  <%= hidden_field_tag "contact[phone_numbers_attributes][id]", @contact.phone_numbers.first.id %>
+                  			<% end %>
+     <%= select("contact[phone_numbers_attributes]", "name" , options_for_select( [ ["Mobile", "mobile"] , ["Home phone","home"], ["Work Phone","work"] ], (@contact.phone_numbers.first.name.downcase rescue nil) )) %>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Phone number
+              	============================= -->
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Number</div>
+                      <div class="item-input">
+                        <%= form.text_field "phone_numbers_attributes", placeholder: "Tap here to type", class: "phoneNumber", type: "number", name: "contact[phone_numbers_attributes][number]", value: ( @contact.phone_numbers.first.number.gsub(" ", "").strip rescue nil) %>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Note
+              	============================= -->
+                <li class="align-top">
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Add a note</div>
+                      <div class="item-input">
+                        <textarea name="note" placeholder="Tap here to type"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+        
+              <div class="content-block-title">Requirements</div>
+              <ul>
+              	<!-- requirement name
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Name</div>
+                      <div class="item-input">
+                        <input type="text" placeholder="Tap here to type" name="requirement[name]"/>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Suburbs
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Suburbs</div>
+                      <div class="item-input">
+                        <%= select( :requirement, "postal_area_names", suburbs_serviced, {prompt: ""}, {multiple: true} ) %>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Looking to
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Looking to</div>
+                      <div class="item-input">
+                        <select name="requirement[requirement_category]">
+                          <option value="residential_sale">Buy</option>
+                          <option value="residential_lease">Rent</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Min Price
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Min Price</div>
+                      <div class="item-input">
+                        <input type="number" placeholder="Tap here to type" name="requirement[min_price]"/>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Max Price
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Max Price</div>
+                      <div class="item-input">
+                        <input type="number" placeholder="Tap here to type" name="requirement[max_price]"/>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Bedrooms
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Bedrooms</div>
+                      <div class="item-input">
+                        <select name="requirement[min_bedrooms]">
+                          <%= options_for_select( [ ["Any", nil] , ["1+", "1"], ["2+", "2"], ["3+", "3"], ["4+", "4"], ["5+", "5"] ])%>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Bathrooms
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Bathrooms</div>
+                      <div class="item-input">
+                        <select name="requirement[min_bathrooms]">
+                          <%= options_for_select( [ ["Any", nil] , ["1+", "1"], ["2+", "2"], ["3+", "3"], ["4+", "4"], ["5+", "5"] ])%>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- Car Spaces
+              	============================= -->
+              	<li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Car Spaces</div>
+                      <div class="item-input">
+                        <select name="requirement[min_car_parks]">
+                          <%= options_for_select( [ ["Any", nil] , ["1+", "1"], ["2+", "2"], ["3+", "3"], ["4+", "4"], ["5+", "5"] ])%>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+        
+              
+           <% end %>
+         </div>
+       </div>
+     </div>
+   </div>
+   

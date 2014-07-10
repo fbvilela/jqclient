@@ -3,7 +3,7 @@ class Requirement < ActiveResource::Base
 	self.prefix = "/api/contacts/:contact_id/"
 	self.element_name = 'requirement'
   self.format = :json
-
+  self.include_root_in_json = true
   @@token = nil
   def self.token=(token)
     self.headers['authorization'] = "Bearer #{token}"

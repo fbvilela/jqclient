@@ -1,44 +1,25 @@
-<li>
-	<div class="swiper-container" id="swiper_<%= contact.id%>" >
-	  <div class="swiper-wrapper">
-  
-	    <!--First Slide-->
-	    <div class="swiper-slide slide1" id="slide1_<%= contact.id%>">
-	      <h1><%= [contact.name,contact.company_name].reject(&:blank?).first %></h1>
-	      <h2><i class="icon-phone"></i> <%= (!contact.mobile.strip.blank? rescue nil) ? contact.mobile : "Unknown" %></h2>
-				<span class="icon-angle-right" onClick="slide_next('swiper_<%= contact.id %>');"></span>
-	    </div>
-    
-	    <!--Second Slide-->
-	    <div class="swiper-slide slide2" id="slide2_<%= contact.id%>">
-        <a class="action" href="tel:<%=contact.mobile%>">
-	        <div class="inner">  
-	          <i class="icon-phone"></i>
-	          <p>Call</p>
-	        </div>
-	      </a>  
-      
-	      <a class="action" href="mailto:<%= contact.email%>">
-	        <div class="inner">
-	          <i class="icon-envelope-alt"></i>
-	          <p>Email</p>
-	        </div>
-	      </a>
-      
-				<%= link_to edit_contact_path( id: contact.id ), {class: "action"} do %>
-	        <div class="inner">
-	          <i class="icon-pencil"></i>
-	          <p>Edit</p>
-	        </div>
-				<% end %>
-      
-				<%= link_to add_note_contact_path( id: contact.id), {class: "action"} do %>
-	        <div class="inner last">
-	          <i class="icon-paper-clip"></i>
-	          <p>Note</p>
-	        </div>
-				<% end %> 
-	    </div><!-- slide2-->
-	  </div><!-- swiper wrapper -->
-	</div><!-- swiper container -->
+
+
+
+
+<li class="swipeout">
+  <div class="swipeout-content item-content">
+    <div class="item-inner">
+    	<a href="#" class="actions" data-name="<%= [contact.name,contact.company_name].reject(&:blank?).first %>" data-phone="<%= (!contact.mobile.strip.blank? rescue nil) ? contact.mobile : "Unknown" %>" data-contact="<%= contact.id %>" data-email="<%= contact.email %>">
+      	<div class="item-title">
+      		<%= [contact.name,contact.company_name].reject(&:blank?).first %>
+					<br>
+					<span><i class="i-phone"></i> <%= (!contact.mobile.strip.blank? rescue nil) ? contact.mobile : "Unknown" %></span>
+				</div>
+    	</a>
+    </div><!-- item inner -->
+  </div><!-- item content -->
+  <!-- swipe to delete
+  =================================== -->
+  <div class="swipeout-actions">
+    <div class="swipeout-actions-inner">
+      <!-- Add this button and item will be deleted automatically -->
+      <a href="#" data-confirm="Are you sure you want to delete this contact?"  class="swipeout-delete">Delete</a>
+    </div>
+  </div>
 </li>

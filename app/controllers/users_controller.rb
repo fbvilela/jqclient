@@ -16,6 +16,8 @@ class UsersController < ApplicationController
     record_login
     redirect_to page_path("menu")
 	else
+    puts "deu merda..."
+    puts res.body
 		flash[:notice] = "Invalid username or password."
     redirect_to "/"
 	end

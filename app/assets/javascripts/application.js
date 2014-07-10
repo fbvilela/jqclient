@@ -10,14 +10,11 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//= require framework7
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
-//= require bootstrap.min
+//= require fastlivefilter 
 //= require less
-//= require idangerous.swiper-1.9.1.min
-//= require jquery.easing-1.3
-//= require app
-//= require contacts
-//= require fastlivefilter
+//= require app 
+
 

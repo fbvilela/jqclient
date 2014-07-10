@@ -1,0 +1,38 @@
+.searchbar .searchbar-button {
+  -webkit-transition-duration: 300ms;
+  transition-duration: 300ms;
+  -webkit-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  color: #007aff;
+  font-size: 17px;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-flex-shrink: 0;
+  -ms-flex: 0 0 auto;
+  flex-shrink: 0;
+  margin-left: 0;
+  pointer-events: none;
+  opacity: 1;
+  background: transparent;
+  color: white;
+  font-size: 14px;
+  border: none;
+  margin-left: 10px;
+}
+.searchbar.searchbar-active .searchbar-button {
+  margin-left: 8px;
+  opacity: 1;
+  pointer-events: auto;
+}
+.searchbar.searchbar-active .searchbar-button:active {
+  opacity: 0.3;
+  -webkit-transition-duration: 0ms;
+  transition-duration: 0ms;
+}
+
+.popup ul .note{ 
+  background: transparent;
+  border: none;
+  
+}

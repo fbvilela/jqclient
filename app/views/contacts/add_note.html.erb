@@ -1,13 +1,28 @@
-<div class="pageTitle">
-  <h1><i class="icon-chevron-left back-button" onclick="window.history.back();"></i> Add a note to <%= @contact.name %> </h1>
-</div> 
-<div class="whiteBg"></div>
-<div class="addNew">
-    <%= form_tag(add_note_contact_path(id: @contact.id), method: "POST", id: "add_note_form" ) do %>
-      <div class="input-custom">
-        <span class="icon-pencil"></span>
-        <textarea rows="12" placeholder="Write your note here" name="note"></textarea>
+  <div class="view navbar-fixed">
+    <div class="page">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="center">Add a note</div>
+          <div class="right"><a href="#" class="link close-popup">Done</a></div>
+        </div>
       </div>
-     <button type="submit" style="position:fixed;bottom:0;left:0" class="btnCustom" form="add_note_form">Save Note <i class="icon-double-angle-right"></i></button>
-	<% end %>
-</div><!-- addNew-->
+      <div class="page-content">
+          <div class="content-block">
+            <%= form_tag(add_note_contact_path(id: @contact.id), class: "store-data list-block" , id: "adding_note" , method: "POST"  ) do %>
+              <ul class="note">
+                <li class="align-top">
+                  <div class="item-content">
+                    <div class="item-inner">
+
+                      <div class="item-input">
+                        <textarea name="note" placeholder="Tap here to type"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </li>                
+              </ul>
+          	<% end %>
+          </div>
+        </div>
+      </div>
+    </div>

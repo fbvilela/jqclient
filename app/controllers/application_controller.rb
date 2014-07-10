@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  #protect_from_forgery
   
-  rescue_from Exception do |exception| 
-      Rails.logger.error "Exception #{exception.class}: #{exception.message}"
-      puts exception.message
-      Airbrake.notify(exception)
-      render_login
-  end
+  #rescue_from Exception do |exception| 
+  #    Rails.logger.error "Exception #{exception.class}: #{exception.message}"
+  #    puts exception.message
+  #    Airbrake.notify(exception)
+  #    render_login
+  #end
 
   def require_premium
     unless session[:access_token].blank? 

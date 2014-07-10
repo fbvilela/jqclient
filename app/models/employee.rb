@@ -4,9 +4,27 @@ class Employee < ActiveResource::Base
   self.collection_name = "employees"
 	self.element_name = 'employee'
   self.format = :json
-
-  def self.token=(token)
-    self.headers['authorization'] = "Bearer #{token}"
+  @@token = nil
+  
+  cattr_accessor :static_headers
+  self.static_headers = headers
+  
+  def self.token=(arg)
+    @@token = arg 
+  end
+  
+  def self.headers
+    new_headers = static_headers.clone
+    new_headers['authorization'] = "Bearer #{token}"
+    new_headers
+  end
+  
+  def self.token 
+    @@token
+  end
+  
+  def token
+    @@token
   end
   
   def self.me

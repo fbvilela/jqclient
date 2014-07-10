@@ -3,7 +3,8 @@ class ContactsController < ApplicationController
   before_filter :set_token, only: [:create,:update, :vendors, :landlords, :search, :add_note]
   before_filter :load_contact, only: [:edit,:update, :add_note]
   before_filter :check_auth, except: [:token]
-  before_filter :require_premium, only: [:new, :edit, :add_note]
+  respond_to :html, :js
+  #before_filter :require_premium, only: [:new, :edit, :add_note]
     
   #caches_action :landlords, :expires_in => 300.seconds, :unless_exist => true
   #caches_action :vendors, :expires_in => 300.seconds, :unless_exist => true
@@ -12,6 +13,8 @@ class ContactsController < ApplicationController
     Employee.token = session[:access_token]
   	Contact.token = session[:access_token]
     Requirement.token = session[:access_token]
+    
+    puts "setting token #{session[:access_token]}"
   end
   
   def load_contact
@@ -19,11 +22,15 @@ class ContactsController < ApplicationController
   end
   
   def add_note
-    if params['note'] && @contact.add_note(params['note'], current_user.name)
-      flash[:notice] = "Note added!" 
-      redirect_to page_path("menu")
+    if params['note']
+      if !params['note'].blank? && @contact.add_note(params['note'], current_user.name)
+       flash[:notice] = "Note added!" 
+       redirect_to(:back)
+      else 
+       render status: 200
+      end
     else
-      render
+      render layout: false
     end
   end
   
@@ -32,14 +39,14 @@ class ContactsController < ApplicationController
       Contact.search(param)
     end.flatten.uniq
     
-    respond_to do |format|
-      format.html{ render 'index' }
-      format.js      
-    end
+
+    render partial: 'contact', collection: @contacts
+      
+    
   end
   
   def index
-    @page_name = "Contacts"
+
   end
   
   def new 
@@ -48,7 +55,9 @@ class ContactsController < ApplicationController
   end
   
   def edit
-    # do nothing just render
+    @contact = Contact.find( params['id'] )
+    puts "editing contact #{@contact.name}"
+    render :layout => false
   end
   
   def update
@@ -58,13 +67,12 @@ class ContactsController < ApplicationController
     @contact.id = params['id']
     @contact.contact_attribute_ids = [params['contact']['contact_attribute_ids']]
     @contact.phone_numbers_attributes = params['contact']['phone_numbers_attributes']
-
     if @contact.save
       unless note.blank? 
         @contact.add_note(note,current_user.name)
       end 
       flash[:notice] = "Contact updated!"
-      redirect_to page_path("menu")
+      redirect_to :back
     else
       flash[:notice] = "problem updating the contact"
       redirect_to edit_contact_path(id: @contact.id)
@@ -96,20 +104,22 @@ class ContactsController < ApplicationController
   end
 
   def create 
-  	params['contact']['contact_attribute_ids'] = [params['contact']['contact_attribute_ids']]
+  	params['contact']['contact_attribute_ids'] = [ params['contact']['contact_attribute_ids']  ]
     note = params["note"]
     contact = Contact.new( params['contact'] )
-  	if (contact.save rescue false)
+  	if (contact.save)
       unless note.blank? 
+        puts "adding a note"
         contact.add_note(note, current_user.name)
       end
       unless params['requirement']['name'].blank? 
+        puts "creating requirement"
         params['requirement']['postal_area_names'] = [params['requirement']['postal_area_names'] ]
         requirement = Requirement.new(params['requirement'])
         requirement.prefix_options = {:contact_id => contact.id}
         requirement.save
       end
-      
+      puts "deu certo..."
   	  flash[:notice] = "#{contact.name} added to iDashboard!"
       flash.keep
   	  redirect_to page_path("menu")

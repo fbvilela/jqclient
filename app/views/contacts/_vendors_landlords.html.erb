@@ -1,27 +1,64 @@
-<% cache("#{@page_name}_#{@current_user_id}", expires_in: 300.seconds) do %>
-<div class="whiteBg"></div>
-<div class="pageTitle">
-  <h1><%= pluralize( @vendors_landlords.count, @page_name) %></h1>
-</div>
-<form class="alt" action="#" onSubmit="$('#filter_contacts').blur();return false;">
-<div class="input-custom">
-  <div class="inner">
-  <input placeholder="type to filter" id="filter_contacts" />
+
+<!-- NavBar 
+**************************************** -->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left sliding">
+	    <!-- Right link contains only icon - additional "icon-only" class-->
+      <a href="#" class="link icon-only open-panel"><i class="i-bars"></i></a>
+    </div>
+    <div class="center sliding"><%= @page_name %></div>
   </div>
-  <span class="icon-search"></span>
 </div>
-</form>
-<div class="rowo large">
-  <ul class="wrap clearfix" id="contact_ul">
-		<%= render partial: 'vendors_landlords_item', collection: @vendors_landlords, as: :item %>	
-	</ul>
-</div>
-<%= render partial: "nav_bar" %>
 
 
-<script type="text/javascript">
-$('#filter_contacts').fastLiveFilter('#contact_ul');
-init_custom_swipers();
-</script>
-
-<% end %>
+<!-- Page 
+**************************************** -->
+<div class="pages navbar-through toolbar-through">
+  <div data-page="vendors" class="page">
+  	<!-- Search Bar
+    ======================================== -->
+  	<form class="searchbar">
+      <div class="searchbar-input">
+        <input type="search" id="filter_contacts" placeholder="Filter"/><a href="#" class="searchbar-clear"></a>
+      </div>
+    </form>
+    <div class="searchbar-overlay"></div>
+  
+    <div class="page-content contacts-content">
+      
+      <!-- Nothing Found Section
+    	======================================== -->
+    	<div class="list-block searchbar-not-found">
+        <ul>
+          <li class="item-content">
+            <div class="item-inner">
+              <div class="item-title">Nothing found</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- Start List Block
+    	======================================== -->
+      <div class="list-block contacts-block search-here list-block-search searchbar-found">
+        <div class="list-group">        
+          
+            <% current_letter = "" %>
+            <% @vendors_landlords.sort_by{ |item| [item.contact['name'],item.contact['company_name']].reject(&:blank?).first.upcase }.each do |item| %>
+              <% loop_letter = [ item.contact['name'],item.contact['company_name'] ].reject(&:blank?).first[0].upcase %>
+              <% if current_letter != loop_letter  %>
+                <ul class="filterable">
+                  <% current_letter = loop_letter %>
+                  <li class="list-group-title item-title"><%= current_letter %></li>
+                  <%= render partial: 'vendors_landlords_item', collection: @vendors_landlords.select{ |item| [item.contact['name'],item.contact['company_name']].reject(&:blank?).first[0].upcase == loop_letter }, as: :item %>	
+                </ul>
+              <% end %>
+            
+            <% end %>
+          
+          </ul>
+        </div><!-- list-group -->
+      </div><!-- list block -->
+    </div><!-- page content -->
+  </div><!-- page -->
+</div><!-- pages -->

@@ -1,24 +1,60 @@
-<div class="whiteBg"></div>
-<%= form_tag(search_contacts_path, remote: true, class: "search-contacts clearfix", id: "search_form") do |f| %>
-  <div class="input-custom">
-    <div class="inner">
-	  <%= text_field_tag :search, nil, placeholder: "Search for contacts" %>
-    </div>
-    <span class="icon-search"></span>
-  </div>
-  <button type="submit" class="btnCustom" form="search_form"> GO <i class="icon-double-angle-right"></i></button>
-<% end %>
 
 
-<p class="search-text" id="blank_contacts" style="display:<%= @contacts.blank? ? '' : 'none'%>">
-  	Search for your contacts<br>by typing on the search box above
-</p>
+  
 
-<div class="rowo small" style="display: <%= @contacts.blank? ? 'none' : "" %>">
-  <ul class="wrap clearfix" id="contact_list">
-		<%= render partial: 'contact', collection: @contacts %>	
- </ul>
+
+
+ 
+<!-- We don't need full layout here, because this page will be parsed with Ajax-->
+
+<!-- NavBar 
+**************************************** -->
+<div class="navbar">
+ <div class="navbar-inner">
+   <div class="left sliding">
+    <!-- Right link contains only icon - additional "icon-only" class-->
+     <a href="#" class="link icon-only open-panel"><i class="i-bars"></i></a>
+   </div>
+   <div class="center sliding">My Contacts</div>
+ </div>
 </div>
 
 
-<%= render partial: "nav_bar" %>
+<!-- Page 
+**************************************** -->
+
+<div class="pages navbar-through toolbar-through">
+ <div data-page="vendors" class="page page-contacts">
+ 	<!-- Search Bar
+   ======================================== -->
+ <form action="/contacts/search" method="post" data-search-list=".earch-here" data-search-in=".item-title" class="searchbar" id="contacts_search">
+     <div class="searchbar-input">
+       <input type="search" placeholder="Search" name="search" class="search_input"/>
+       <a href="#" class="searchbar-clear"></a>
+     </div>
+     <button type="submit" class="searchbar-button">Search</button>
+  </form>
+   <div class="searchbar-overlay"></div>
+
+   <div class="page-content contacts-content">
+      <div class="list-block contacts-block search-here searchbar-found">
+        <% if @contacts.blank? %>
+         	<p>
+         		<i class="i-search"></i>
+         		<br>
+         		Search for your contacts by typing<br>on the search box above.
+         	</p>
+        <% end %>
+        
+        <div class="list-group">
+        
+          <ul id="result_list">
+
+          
+          </ul>
+        </div><!-- list-group -->
+      </div><!-- list block -->    
+   </div><!-- page content -->
+  
+ </div><!-- page -->
+</div><!-- pages -->
