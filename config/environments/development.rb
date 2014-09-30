@@ -42,7 +42,7 @@ Jqclient::Application.configure do
   config.eager_load = false
 
   # api connection related 
-  config.idashboard_url = "http://www.idashboard.com.au"
+  config.idashboard_url = "http://megatron.idashboard.com.au"
   config.app_key = "lyexzv19zd79eiyXZmdRdj4YIzDTheGR14Ph8oUw"
   config.app_secret = "RiMwAXwOqTijrltk8uC0N4G5Vz3rmQVoJbijIIcW"
  

@@ -6,13 +6,22 @@ class Contact < ActiveResource::Base
   self.prefix = "/api/"
   self.element_name = 'contact'
   self.collection_name = 'contacts'
+  self.include_root_in_json = true
   #self.format = :json
   @@token = nil
   attr_accessor :contact_attribute_ids
   attr_accessor :phone_numbers_attributes
   
+  cattr_accessor :static_headers
+  self.static_headers = headers
+  
+  def self.headers
+    new_headers = static_headers.clone
+    new_headers['authorization'] = "Bearer #{token}"
+    new_headers
+  end
+  
   def self.token=(arg)
-  	self.headers['authorization'] = "Bearer #{token}"
     @@token = arg 
   end
   
@@ -64,18 +73,36 @@ class Contact < ActiveResource::Base
     end
   end
   
+  def phone_id
+    if self.attributes['phone_numbers_attributes'].is_a?(Hash)
+      self.attributes['phone_numbers_attributes']['id'] || "_new"
+    else
+      self.attributes['phone_numbers_attributes'].attributes.delete("id") || "_new"
+    end
+  end
+  
+  def phone_attributes
+    if self.attributes['phone_numbers_attributes'].is_a?(Hash)
+      self.attributes['phone_numbers_attributes']
+    else
+      self.attributes['phone_numbers_attributes'].attributes
+    end
+  end
+  
   def to_my_params
-    { 
+    x = { 
       :contact => 
       {
-        first_name: self.first_name, last_name: self.last_name, contact_attribute_ids: self.contact_attribute_ids, email: self.email,
-        :phone_numbers_attributes => { (self.phone_numbers_attributes.delete("id") || "_new").to_sym  =>  self.phone_numbers_attributes }
+        first_name: self.first_name, last_name: self.last_name, contact_attribute_ids: ([self.attributes['contact_attribute_ids']] || [nil]) , email: self.email,
+        phone_numbers_attributes: { phone_id.to_s.to_sym  =>  phone_attributes }
        } 
     }
+    puts "returning #{x}"
+    x
   end
   
   def self.search(arg)
-    conn = Faraday.new(:url => Rails.configuration.idashboard_url)
+    conn = Faraday.new( :url => Rails.configuration.idashboard_url )
     response = conn.get do |req|
       req.url "/api/search_contacts"
       req.headers['authorization'] = "Bearer #{token}" if token
@@ -91,7 +118,22 @@ class Contact < ActiveResource::Base
   end
   
   def save
-    self.new_record? ? super : faraday_update
+    self.new_record? ? faraday_create : faraday_update
+  end
+  
+  def faraday_create
+    puts "on faraday create"
+    conn = Faraday.new(:url => Rails.configuration.idashboard_url)   
+    response = conn.post do |req|
+      req.url "/api/contacts"
+      req.headers['authorization'] = "Bearer #{token}" if token
+      req.params = self.to_my_params
+    end
+    if response.status == 201
+      id = JSON.parse( response.body )['contact']['id']
+      self.attributes = self.class.find(id).attributes
+    end
+    
   end
   
   def faraday_update()
